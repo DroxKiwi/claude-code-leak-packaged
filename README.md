@@ -35,7 +35,6 @@
 - [Key Files](#key-files)
 - [Tech Stack](#tech-stack)
 - [Design Patterns](#design-patterns)
-- [GitPretty Setup](#gitpretty-setup)
 - [Contributing](#contributing)
 - [Disclaimer](#disclaimer)
 
@@ -408,26 +407,6 @@ Defined in `skills/` and executed through `SkillTool`. Users can add custom skil
 <summary><strong>Plugin Architecture</strong> — Extensibility</summary>
 
 Built-in and third-party plugins loaded through the `plugins/` subsystem.
-
-</details>
-
----
-
-## GitPretty Setup
-
-<details>
-<summary>Show per-file emoji commit messages in GitHub's file UI</summary>
-
-```bash
-# Apply emoji commits
-bash ./gitpretty-apply.sh .
-
-# Optional: install hooks for future commits
-bash ./gitpretty-apply.sh . --hooks
-
-# Push as usual
-git push origin main
-```
 
 </details>
 
