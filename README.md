@@ -70,11 +70,7 @@ For in-depth guides, see the [`docs/`](docs/) directory:
 
 | Guide | Description |
 |-------|-------------|
-| **[Architecture](docs/architecture.md)** | Core pipeline, startup sequence, state management, rendering, data flow |
-| **[Tools Reference](docs/tools.md)** | Complete catalog of all ~40 agent tools with categories and permission model |
-| **[Commands Reference](docs/commands.md)** | All ~85 slash commands organized by category |
-| **[Subsystems Guide](docs/subsystems.md)** | Deep dives into Bridge, MCP, Permissions, Plugins, Skills, Tasks, Memory, Voice |
-| **[Exploration Guide](docs/exploration-guide.md)** | How to navigate the codebase — study paths, grep patterns, key files |
+| **[Guide refonte Drox](docs/GUIDE-REFONTE-DROX.md)** (fork) | **Seule doc** dans `docs/` : vision, suivi, contrats `DROX_*`, architecture, journal — tout est fusionné ici |
 
 Also see: [CONTRIBUTING.md](CONTRIBUTING.md) · [MCP Server README](mcp-server/README.md)
 

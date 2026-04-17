@@ -6,22 +6,29 @@
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "strict": true,
+    "noImplicitAny": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "declaration": false,
+    "allowJs": true,
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": false,
     "lib": ["ESNext"],
-    "types": ["node"],
+    "types": ["node", "bun"],
     "baseUrl": ".",
     "paths": {
-      "bun:bundle": ["./src/types/bun-bundle.d.ts"]
+      "bun:bundle": ["./src/types/bun-bundle.d.ts"],
+      "@ant/claude-for-chrome-mcp": ["./src/shims/ant-claude-for-chrome-mcp.ts"],
+      "@anthropic-ai/sandbox-runtime": [
+        "./src/shims/anthropic-sandbox-runtime.ts"
+      ],
+      "@anthropic-ai/mcpb": ["./src/shims/anthropic-mcpb.ts"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }
 

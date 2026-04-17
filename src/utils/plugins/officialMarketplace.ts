@@ -13,8 +13,8 @@ import type { MarketplaceSource } from './schemas.js'
  * Used when auto-installing the marketplace on startup.
  */
 export const OFFICIAL_MARKETPLACE_SOURCE = {
-  source: 'github',
-  repo: 'anthropics/claude-plugins-official',
+	source: 'github',
+	repo: 'anthropics/claude-plugins-official',
 } as const satisfies MarketplaceSource
 
 /**
@@ -23,4 +23,3 @@ export const OFFICIAL_MARKETPLACE_SOURCE = {
  * in the known_marketplaces.json file.
  */
 export const OFFICIAL_MARKETPLACE_NAME = 'claude-plugins-official'
-

@@ -1,20 +1,18 @@
+import { homedir } from 'node:os'
+import { join } from 'node:path'
 import memoize from 'lodash-es/memoize.js'
-import { homedir } from 'os'
-import { join } from 'path'
 
 // Memoized: 150+ callers, many on hot paths. Keyed off CLAUDE_CONFIG_DIR so
 // tests that change the env var get a fresh value without explicit cache.clear.
 export const getClaudeConfigHomeDir = memoize(
-  (): string => {
-    return (
-      process.env.CLAUDE_CONFIG_DIR ?? join(homedir(), '.claude')
-    ).normalize('NFC')
-  },
-  () => process.env.CLAUDE_CONFIG_DIR,
+	(): string => {
+		return (process.env.CLAUDE_CONFIG_DIR ?? join(homedir(), '.claude')).normalize('NFC')
+	},
+	() => process.env.CLAUDE_CONFIG_DIR,
 )
 
 export function getTeamsDir(): string {
-  return join(getClaudeConfigHomeDir(), 'teams')
+	return join(getClaudeConfigHomeDir(), 'teams')
 }
 
 /**
@@ -22,34 +20,32 @@ export function getTeamsDir(): string {
  * Splits on whitespace and checks for exact match to avoid false positives.
  */
 export function hasNodeOption(flag: string): boolean {
-  const nodeOptions = process.env.NODE_OPTIONS
-  if (!nodeOptions) {
-    return false
-  }
-  return nodeOptions.split(/\s+/).includes(flag)
+	const nodeOptions = process.env.NODE_OPTIONS
+	if (!nodeOptions) {
+		return false
+	}
+	return nodeOptions.split(/\s+/).includes(flag)
 }
 
 export function isEnvTruthy(envVar: string | boolean | undefined): boolean {
-  if (!envVar) return false
-  if (typeof envVar === 'boolean') return envVar
-  const normalizedValue = envVar.toLowerCase().trim()
-  return ['1', 'true', 'yes', 'on'].includes(normalizedValue)
+	if (!envVar) return false
+	if (typeof envVar === 'boolean') return envVar
+	const normalizedValue = envVar.toLowerCase().trim()
+	return ['1', 'true', 'yes', 'on'].includes(normalizedValue)
 }
 
-export function isEnvDefinedFalsy(
-  envVar: string | boolean | undefined,
-): boolean {
-  if (envVar === undefined) return false
-  if (typeof envVar === 'boolean') return !envVar
-  if (!envVar) return false
-  const normalizedValue = envVar.toLowerCase().trim()
-  return ['0', 'false', 'no', 'off'].includes(normalizedValue)
+export function isEnvDefinedFalsy(envVar: string | boolean | undefined): boolean {
+	if (envVar === undefined) return false
+	if (typeof envVar === 'boolean') return !envVar
+	if (!envVar) return false
+	const normalizedValue = envVar.toLowerCase().trim()
+	return ['0', 'false', 'no', 'off'].includes(normalizedValue)
 }
 
 /**
  * --bare / CLAUDE_CODE_SIMPLE — skip hooks, LSP, plugin sync, skill dir-walk,
  * attribution, background prefetches, and ALL keychain/credential reads.
- * Auth is strictly ANTHROPIC_API_KEY env or apiKeyHelper from --settings.
+ * Auth inférence : DROX_API_KEY ou apiKeyHelper depuis --settings.
  * Explicit CLI flags (--plugin-dir, --add-dir, --mcp-config) still honored.
  * ~30 gates across the codebase.
  *
@@ -58,10 +54,75 @@ export function isEnvDefinedFalsy(
  * — notably startKeychainPrefetch() at main.tsx top-level.
  */
 export function isBareMode(): boolean {
-  return (
-    isEnvTruthy(process.env.CLAUDE_CODE_SIMPLE) ||
-    process.argv.includes('--bare')
-  )
+	return isEnvTruthy(process.env.CLAUDE_CODE_SIMPLE) || process.argv.includes('--bare')
+}
+
+/**
+ * Fork harness / Ollama : aucun refresh de token OAuth ni fetch de profil
+ * vers les domaines Claude/Anthropic. Les jetons éventuellement présents sur
+ * disque ne déclenchent pas de `POST` token ni d’appel profile.
+ *
+ * Voir aussi **`CLAUDE_CODE_DISABLE_OAUTH_NETWORK`** pour désactiver sans Ollama.
+ *
+ * Builds **externes** (`USER_TYPE` ≠ `ant`) : pas de réseau OAuth par défaut ;
+ * réactiver avec **`DROX_OAUTH_NETWORK_ENABLED=1`** (flux navigateur / claude.ai).
+ */
+export function isOAuthNetworkDisabledForFork(): boolean {
+	if (
+		isEnvTruthy(process.env.CLAUDE_CODE_USE_OLLAMA) ||
+		isEnvTruthy(process.env.CLAUDE_CODE_DISABLE_OAUTH_NETWORK)
+	) {
+		return true
+	}
+	if (process.env.USER_TYPE !== 'ant') {
+		return !isEnvTruthy(process.env.DROX_OAUTH_NETWORK_ENABLED)
+	}
+	return false
+}
+
+/**
+ * Sessions distantes CCR / téléport cloud, auto-install marketplace officiel,
+ * **fetch + proxy des connecteurs MCP claude.ai** (`claudeai-proxy`) : désactivés
+ * sur le fork **externe** sauf opt-in **`DROX_REMOTE_CLOUD_FEATURES_ENABLED=1`**.
+ * Builds **`ant`** : actifs sauf **`CLAUDE_CODE_DISABLE_REMOTE_CLOUD=1`**.
+ *
+ * Voir **`docs/GUIDE-REFONTE-DROX.md`** (phase 7).
+ */
+export function isRemoteCloudMechanicsDisabledForFork(): boolean {
+	if (process.env.USER_TYPE === 'ant') {
+		return isEnvTruthy(process.env.CLAUDE_CODE_DISABLE_REMOTE_CLOUD)
+	}
+	return !isEnvTruthy(process.env.DROX_REMOTE_CLOUD_FEATURES_ENABLED)
+}
+
+/**
+ * Commande **`claude update`** (vérification / install depuis GCS ou registre npm du paquet
+ * upstream) : sur le fork **externe**, désactivée par défaut — opt-in **`DROX_CLI_UPDATE_ENABLED=1`**.
+ * Indépendant de **`isRemoteCloudMechanicsDisabledForFork()`** (téléport / marketplace).
+ *
+ * **`DISABLE_AUTOUPDATER`** et les autres raisons de **`getAutoUpdaterDisabledReason()`** sont
+ * appliquées dans **`cli/update.ts`** avant cette garde (voir guide §2.2.3).
+ */
+export function isThirdPartyCliUpdateDisabledForFork(): boolean {
+	if (process.env.USER_TYPE === 'ant') {
+		return false
+	}
+	return !isEnvTruthy(process.env.DROX_CLI_UPDATE_ENABLED)
+}
+
+/**
+ * Appels HTTP optionnels vers l’hôte 1P (`api.anthropic.com`) **hors** flux Messages API :
+ * feedback CLI, partage de transcript survey, préflight WebFetch (`domain_info`).
+ *
+ * Builds **externes** (`USER_TYPE` ≠ `ant`) : **désactivés par défaut** — opt-in
+ * **`DROX_FIRST_PARTY_AUX_HTTP_ENABLED=1`**.
+ * Builds **`ant`** : actifs sauf **`CLAUDE_CODE_DISABLE_FIRST_PARTY_AUX_HTTP=1`**.
+ */
+export function isFirstPartyAuxHttpDisabledForFork(): boolean {
+	if (process.env.USER_TYPE === 'ant') {
+		return isEnvTruthy(process.env.CLAUDE_CODE_DISABLE_FIRST_PARTY_AUX_HTTP)
+	}
+	return !isEnvTruthy(process.env.DROX_FIRST_PARTY_AUX_HTTP_ENABLED)
 }
 
 /**
@@ -69,24 +130,22 @@ export function isBareMode(): boolean {
  * @param envVars Array of strings in KEY=VALUE format
  * @returns Object with key-value pairs
  */
-export function parseEnvVars(
-  rawEnvArgs: string[] | undefined,
-): Record<string, string> {
-  const parsedEnv: Record<string, string> = {}
+export function parseEnvVars(rawEnvArgs: string[] | undefined): Record<string, string> {
+	const parsedEnv: Record<string, string> = {}
 
-  // Parse individual env vars
-  if (rawEnvArgs) {
-    for (const envStr of rawEnvArgs) {
-      const [key, ...valueParts] = envStr.split('=')
-      if (!key || valueParts.length === 0) {
-        throw new Error(
-          `Invalid environment variable format: ${envStr}, environment variables should be added as: -e KEY1=value1 -e KEY2=value2`,
-        )
-      }
-      parsedEnv[key] = valueParts.join('=')
-    }
-  }
-  return parsedEnv
+	// Parse individual env vars
+	if (rawEnvArgs) {
+		for (const envStr of rawEnvArgs) {
+			const [key, ...valueParts] = envStr.split('=')
+			if (!key || valueParts.length === 0) {
+				throw new Error(
+					`Invalid environment variable format: ${envStr}, environment variables should be added as: -e KEY1=value1 -e KEY2=value2`,
+				)
+			}
+			parsedEnv[key] = valueParts.join('=')
+		}
+	}
+	return parsedEnv
 }
 
 /**
@@ -94,14 +153,14 @@ export function parseEnvVars(
  * Matches the Anthropic Bedrock SDK's region behavior
  */
 export function getAWSRegion(): string {
-  return process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION || 'us-east-1'
+	return process.env.AWS_REGION || process.env.AWS_DEFAULT_REGION || 'us-east-1'
 }
 
 /**
  * Get the default Vertex AI region
  */
 export function getDefaultVertexRegion(): string {
-  return process.env.CLOUD_ML_REGION || 'us-east5'
+	return process.env.CLOUD_ML_REGION || 'us-east5'
 }
 
 /**
@@ -109,17 +168,14 @@ export function getDefaultVertexRegion(): string {
  * @returns true if CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR is set to a truthy value
  */
 export function shouldMaintainProjectWorkingDir(): boolean {
-  return isEnvTruthy(process.env.CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR)
+	return isEnvTruthy(process.env.CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR)
 }
 
 /**
  * Check if running on Homespace (ant-internal cloud environment)
  */
 export function isRunningOnHomespace(): boolean {
-  return (
-    process.env.USER_TYPE === 'ant' &&
-    isEnvTruthy(process.env.COO_RUNNING_ON_HOMESPACE)
-  )
+	return process.env.USER_TYPE === 'ant' && isEnvTruthy(process.env.COO_RUNNING_ON_HOMESPACE)
 }
 
 /**
@@ -134,16 +190,16 @@ export function isRunningOnHomespace(): boolean {
  * Used for telemetry to measure auto-mode usage in sensitive environments.
  */
 export function isInProtectedNamespace(): boolean {
-  // USER_TYPE is build-time --define'd; in external builds this block is
-  // DCE'd so the require() and namespace allowlist never appear in the bundle.
-  if (process.env.USER_TYPE === 'ant') {
-    /* eslint-disable @typescript-eslint/no-require-imports */
-    return (
-      require('./protectedNamespace.js') as typeof import('./protectedNamespace.js')
-    ).checkProtectedNamespace()
-    /* eslint-enable @typescript-eslint/no-require-imports */
-  }
-  return false
+	// USER_TYPE is build-time --define'd; in external builds this block is
+	// DCE'd so the require() and namespace allowlist never appear in the bundle.
+	if (process.env.USER_TYPE === 'ant') {
+		/* eslint-disable @typescript-eslint/no-require-imports */
+		return (
+			require('./protectedNamespace.js') as typeof import('./protectedNamespace.js')
+		).checkProtectedNamespace()
+		/* eslint-enable @typescript-eslint/no-require-imports */
+	}
+	return false
 }
 
 // @[MODEL LAUNCH]: Add a Vertex region override env var for the new model.
@@ -153,32 +209,32 @@ export function isInProtectedNamespace(): boolean {
  * (e.g., 'claude-opus-4-1' before 'claude-opus-4').
  */
 const VERTEX_REGION_OVERRIDES: ReadonlyArray<[string, string]> = [
-  ['claude-haiku-4-5', 'VERTEX_REGION_CLAUDE_HAIKU_4_5'],
-  ['claude-3-5-haiku', 'VERTEX_REGION_CLAUDE_3_5_HAIKU'],
-  ['claude-3-5-sonnet', 'VERTEX_REGION_CLAUDE_3_5_SONNET'],
-  ['claude-3-7-sonnet', 'VERTEX_REGION_CLAUDE_3_7_SONNET'],
-  ['claude-opus-4-1', 'VERTEX_REGION_CLAUDE_4_1_OPUS'],
-  ['claude-opus-4', 'VERTEX_REGION_CLAUDE_4_0_OPUS'],
-  ['claude-sonnet-4-6', 'VERTEX_REGION_CLAUDE_4_6_SONNET'],
-  ['claude-sonnet-4-5', 'VERTEX_REGION_CLAUDE_4_5_SONNET'],
-  ['claude-sonnet-4', 'VERTEX_REGION_CLAUDE_4_0_SONNET'],
+	['claude-haiku-4-5', 'VERTEX_REGION_CLAUDE_HAIKU_4_5'],
+	['claude-3-5-haiku', 'VERTEX_REGION_CLAUDE_3_5_HAIKU'],
+	['claude-3-5-sonnet', 'VERTEX_REGION_CLAUDE_3_5_SONNET'],
+	['claude-3-7-sonnet', 'VERTEX_REGION_CLAUDE_3_7_SONNET'],
+	['claude-opus-4-1', 'VERTEX_REGION_CLAUDE_4_1_OPUS'],
+	['claude-opus-4', 'VERTEX_REGION_CLAUDE_4_0_OPUS'],
+	['claude-sonnet-4-6', 'VERTEX_REGION_CLAUDE_4_6_SONNET'],
+	['claude-sonnet-4-5', 'VERTEX_REGION_CLAUDE_4_5_SONNET'],
+	['claude-sonnet-4', 'VERTEX_REGION_CLAUDE_4_0_SONNET'],
 ]
 
 /**
  * Get the Vertex AI region for a specific model.
  * Different models may be available in different regions.
  */
-export function getVertexRegionForModel(
-  model: string | undefined,
-): string | undefined {
-  if (model) {
-    const match = VERTEX_REGION_OVERRIDES.find(([prefix]) =>
-      model.startsWith(prefix),
-    )
-    if (match) {
-      return process.env[match[1]] || getDefaultVertexRegion()
-    }
-  }
-  return getDefaultVertexRegion()
+export function getVertexRegionForModel(model: string | undefined): string | undefined {
+	if (model) {
+		const match = VERTEX_REGION_OVERRIDES.find(([prefix]) => model.startsWith(prefix))
+		if (match) {
+			return process.env[match[1]] || getDefaultVertexRegion()
+		}
+	}
+	return getDefaultVertexRegion()
 }
 
+/** Fork: pas de mode Ollama dédié dans ce build. */
+export function isOllamaMode(): boolean {
+	return false
+}

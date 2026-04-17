@@ -16,29 +16,25 @@ type Lockfile = typeof import('proper-lockfile')
 let _lockfile: Lockfile | undefined
 
 function getLockfile(): Lockfile {
-  if (!_lockfile) {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    _lockfile = require('proper-lockfile') as Lockfile
-  }
-  return _lockfile
+	if (!_lockfile) {
+		// eslint-disable-next-line @typescript-eslint/no-require-imports
+		_lockfile = require('proper-lockfile') as Lockfile
+	}
+	return _lockfile
 }
 
-export function lock(
-  file: string,
-  options?: LockOptions,
-): Promise<() => Promise<void>> {
-  return getLockfile().lock(file, options)
+export function lock(file: string, options?: LockOptions): Promise<() => Promise<void>> {
+	return getLockfile().lock(file, options)
 }
 
 export function lockSync(file: string, options?: LockOptions): () => void {
-  return getLockfile().lockSync(file, options)
+	return getLockfile().lockSync(file, options)
 }
 
 export function unlock(file: string, options?: UnlockOptions): Promise<void> {
-  return getLockfile().unlock(file, options)
+	return getLockfile().unlock(file, options)
 }
 
 export function check(file: string, options?: CheckOptions): Promise<boolean> {
-  return getLockfile().check(file, options)
+	return getLockfile().check(file, options)
 }
-

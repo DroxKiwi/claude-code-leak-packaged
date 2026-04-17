@@ -20,16 +20,15 @@ const BLINK_INTERVAL_MS = 600
  * }
  */
 export function useBlink(
-  enabled: boolean,
-  intervalMs: number = BLINK_INTERVAL_MS,
+	enabled: boolean,
+	intervalMs: number = BLINK_INTERVAL_MS,
 ): [ref: (element: DOMElement | null) => void, isVisible: boolean] {
-  const focused = useTerminalFocus()
-  const [ref, time] = useAnimationFrame(enabled && focused ? intervalMs : null)
+	const focused = useTerminalFocus()
+	const [ref, time] = useAnimationFrame(enabled && focused ? intervalMs : null)
 
-  if (!enabled || !focused) return [ref, true]
+	if (!enabled || !focused) return [ref, true]
 
-  // Derive blink state from time - all instances see the same time so they sync
-  const isVisible = Math.floor(time / intervalMs) % 2 === 0
-  return [ref, isVisible]
+	// Derive blink state from time - all instances see the same time so they sync
+	const isVisible = Math.floor(time / intervalMs) % 2 === 0
+	return [ref, isVisible]
 }
-

@@ -7,11 +7,11 @@ import { RemoteAgentTask } from './tasks/RemoteAgentTask/RemoteAgentTask.js'
 
 /* eslint-disable @typescript-eslint/no-require-imports */
 const LocalWorkflowTask: Task | null = feature('WORKFLOW_SCRIPTS')
-  ? require('./tasks/LocalWorkflowTask/LocalWorkflowTask.js').LocalWorkflowTask
-  : null
+	? require('./tasks/LocalWorkflowTask/LocalWorkflowTask.js').LocalWorkflowTask
+	: null
 const MonitorMcpTask: Task | null = feature('MONITOR_TOOL')
-  ? require('./tasks/MonitorMcpTask/MonitorMcpTask.js').MonitorMcpTask
-  : null
+	? require('./tasks/MonitorMcpTask/MonitorMcpTask.js').MonitorMcpTask
+	: null
 /* eslint-enable @typescript-eslint/no-require-imports */
 
 /**
@@ -20,21 +20,15 @@ const MonitorMcpTask: Task | null = feature('MONITOR_TOOL')
  * Note: Returns array inline to avoid circular dependency issues with top-level const
  */
 export function getAllTasks(): Task[] {
-  const tasks: Task[] = [
-    LocalShellTask,
-    LocalAgentTask,
-    RemoteAgentTask,
-    DreamTask,
-  ]
-  if (LocalWorkflowTask) tasks.push(LocalWorkflowTask)
-  if (MonitorMcpTask) tasks.push(MonitorMcpTask)
-  return tasks
+	const tasks: Task[] = [LocalShellTask, LocalAgentTask, RemoteAgentTask, DreamTask]
+	if (LocalWorkflowTask) tasks.push(LocalWorkflowTask)
+	if (MonitorMcpTask) tasks.push(MonitorMcpTask)
+	return tasks
 }
 
 /**
  * Get a task by its type.
  */
 export function getTaskByType(type: TaskType): Task | undefined {
-  return getAllTasks().find(t => t.type === type)
+	return getAllTasks().find((t) => t.type === type)
 }
-

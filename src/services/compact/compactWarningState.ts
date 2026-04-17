@@ -9,11 +9,10 @@ export const compactWarningStore = createStore<boolean>(false)
 
 /** Suppress the compact warning. Call after successful compaction. */
 export function suppressCompactWarning(): void {
-  compactWarningStore.setState(() => true)
+	compactWarningStore.setState(() => true)
 }
 
 /** Clear the compact warning suppression. Called at start of new compact attempt. */
 export function clearCompactWarningSuppression(): void {
-  compactWarningStore.setState(() => false)
+	compactWarningStore.setState(() => false)
 }
-

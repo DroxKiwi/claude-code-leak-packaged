@@ -10,11 +10,10 @@ export type TerminalFocusEventType = 'terminalfocus' | 'terminalblur'
  * - CSI O (\x1b[O) when the terminal loses focus
  */
 export class TerminalFocusEvent extends Event {
-  readonly type: TerminalFocusEventType
+	readonly type: TerminalFocusEventType
 
-  constructor(type: TerminalFocusEventType) {
-    super()
-    this.type = type
-  }
+	constructor(type: TerminalFocusEventType) {
+		super()
+		this.type = type
+	}
 }
-

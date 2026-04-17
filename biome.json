@@ -8,18 +8,39 @@
     "rules": {
       "recommended": true,
       "complexity": {
-        "noExcessiveCognitiveComplexity": "warn"
+        "noBannedTypes": "warn",
+        "noExcessiveCognitiveComplexity": "warn",
+        "noForEach": "warn",
+        "noStaticOnlyClass": "warn"
       },
       "correctness": {
+        "noConstantCondition": "warn",
+        "noInvalidUseBeforeDeclaration": "warn",
         "noUnusedImports": "warn",
-        "noUnusedVariables": "warn"
+        "noUnusedVariables": "warn",
+        "noVoidTypeReturn": "warn",
+        "useExhaustiveDependencies": "warn",
+        "useHookAtTopLevel": "warn"
       },
       "style": {
+        "noArguments": "warn",
         "noNonNullAssertion": "off",
+        "noParameterAssign": "warn",
+        "useConst": "warn",
         "useImportType": "warn"
       },
       "suspicious": {
-        "noExplicitAny": "off"
+        "noArrayIndexKey": "warn",
+        "noAssignInExpressions": "warn",
+        "noAsyncPromiseExecutor": "warn",
+        "noConfusingLabels": "warn",
+        "noConsole": "warn",
+        "noControlCharactersInRegex": "warn",
+        "noExplicitAny": "off",
+        "noImplicitAnyLet": "off",
+        "noRedeclare": "warn",
+        "noSelfCompare": "warn",
+        "noThenProperty": "warn"
       }
     }
   },
@@ -42,8 +63,56 @@
     }
   },
   "files": {
-    "ignore": ["node_modules", "dist", "*.d.ts"]
-  }
+    "ignore": [
+      "node_modules",
+      "dist",
+      "*.d.ts"
+    ]
+  },
+  "overrides": [
+    {
+      "include": [
+        "src/bridge/remoteBridgeCore.ts",
+        "src/bridge/replBridge.ts",
+        "src/cli/print.ts",
+        "src/commands.ts",
+        "src/components/messages/AttachmentMessage.tsx",
+        "src/components/messages/SystemTextMessage.tsx",
+        "src/components/PromptInput/PromptInputFooterLeftSide.tsx",
+        "src/components/Settings/Config.tsx",
+        "src/components/Spinner.tsx",
+        "src/constants/prompts.ts",
+        "src/constants/tools.ts",
+        "src/hooks/useMergedTools.ts",
+        "src/query.ts",
+        "src/screens/REPL.tsx",
+        "src/screens/REPLBody.tsx",
+        "src/services/autoDream/autoDream.ts",
+        "src/tools.ts",
+        "src/types/hooks.ts",
+        "src/utils/attachments.ts",
+        "src/utils/context.ts",
+        "src/utils/effort.ts",
+        "src/utils/hooks.ts",
+        "src/utils/model/model.ts",
+        "src/utils/model/modelOptions.ts",
+        "src/utils/model/validateModel.ts",
+        "src/utils/statusNoticeDefinitions.tsx",
+        "src/utils/thinking.ts"
+      ],
+      "organizeImports": {
+        "enabled": false
+      }
+    },
+    {
+      "include": ["src/utils/claudeInChrome/chromeNativeHost.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"
+          }
+        }
+      }
+    }
+  ]
 }
-
-

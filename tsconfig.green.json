@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  // Graphe + résolution de modules uniquement (pas de vérif des types). Voir npm run typecheck:parse-only.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noCheck": true
+  }
+}

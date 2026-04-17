@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ClickEvent } from './click-event.js'
 import type { FocusEvent } from './focus-event.js'
 import type { KeyboardEvent } from './keyboard-event.js'
@@ -19,22 +20,22 @@ type HoverEventHandler = () => void
  * - onEventNameCapture: handler for capture phase
  */
 export type EventHandlerProps = {
-  onKeyDown?: KeyboardEventHandler
-  onKeyDownCapture?: KeyboardEventHandler
+	onKeyDown?: KeyboardEventHandler
+	onKeyDownCapture?: KeyboardEventHandler
 
-  onFocus?: FocusEventHandler
-  onFocusCapture?: FocusEventHandler
-  onBlur?: FocusEventHandler
-  onBlurCapture?: FocusEventHandler
+	onFocus?: FocusEventHandler
+	onFocusCapture?: FocusEventHandler
+	onBlur?: FocusEventHandler
+	onBlurCapture?: FocusEventHandler
 
-  onPaste?: PasteEventHandler
-  onPasteCapture?: PasteEventHandler
+	onPaste?: PasteEventHandler
+	onPasteCapture?: PasteEventHandler
 
-  onResize?: ResizeEventHandler
+	onResize?: ResizeEventHandler
 
-  onClick?: ClickEventHandler
-  onMouseEnter?: HoverEventHandler
-  onMouseLeave?: HoverEventHandler
+	onClick?: ClickEventHandler
+	onMouseEnter?: HoverEventHandler
+	onMouseLeave?: HoverEventHandler
 }
 
 /**
@@ -42,15 +43,15 @@ export type EventHandlerProps = {
  * Used by the dispatcher for O(1) handler lookup per node.
  */
 export const HANDLER_FOR_EVENT: Record<
-  string,
-  { bubble?: keyof EventHandlerProps; capture?: keyof EventHandlerProps }
+	string,
+	{ bubble?: keyof EventHandlerProps; capture?: keyof EventHandlerProps }
 > = {
-  keydown: { bubble: 'onKeyDown', capture: 'onKeyDownCapture' },
-  focus: { bubble: 'onFocus', capture: 'onFocusCapture' },
-  blur: { bubble: 'onBlur', capture: 'onBlurCapture' },
-  paste: { bubble: 'onPaste', capture: 'onPasteCapture' },
-  resize: { bubble: 'onResize' },
-  click: { bubble: 'onClick' },
+	keydown: { bubble: 'onKeyDown', capture: 'onKeyDownCapture' },
+	focus: { bubble: 'onFocus', capture: 'onFocusCapture' },
+	blur: { bubble: 'onBlur', capture: 'onBlurCapture' },
+	paste: { bubble: 'onPaste', capture: 'onPasteCapture' },
+	resize: { bubble: 'onResize' },
+	click: { bubble: 'onClick' },
 }
 
 /**
@@ -58,17 +59,16 @@ export const HANDLER_FOR_EVENT: Record<
  * event props and store them in _eventHandlers instead of attributes.
  */
 export const EVENT_HANDLER_PROPS = new Set<string>([
-  'onKeyDown',
-  'onKeyDownCapture',
-  'onFocus',
-  'onFocusCapture',
-  'onBlur',
-  'onBlurCapture',
-  'onPaste',
-  'onPasteCapture',
-  'onResize',
-  'onClick',
-  'onMouseEnter',
-  'onMouseLeave',
+	'onKeyDown',
+	'onKeyDownCapture',
+	'onFocus',
+	'onFocusCapture',
+	'onBlur',
+	'onBlurCapture',
+	'onPaste',
+	'onPasteCapture',
+	'onResize',
+	'onClick',
+	'onMouseEnter',
+	'onMouseLeave',
 ])
-

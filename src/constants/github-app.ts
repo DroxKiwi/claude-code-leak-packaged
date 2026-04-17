@@ -1,7 +1,7 @@
 export const PR_TITLE = 'Add Claude Code GitHub Workflow'
 
 export const GITHUB_ACTION_SETUP_DOCS_URL =
-  'https://github.com/anthropics/claude-code-action/blob/main/docs/setup.md'
+	'https://github.com/anthropics/claude-code-action/blob/main/docs/setup.md'
 
 export const WORKFLOW_CONTENT = `name: Claude Code
 
@@ -39,7 +39,7 @@ jobs:
         id: claude
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: \${{ secrets.DROX_API_KEY }}
 
           # This is an optional setting that allows Claude to read CI results on PRs
           additional_permissions: |
@@ -83,7 +83,7 @@ Once the workflow is triggered, Claude will analyze the comment and surrounding 
 
 ### Security
 
-- Our Anthropic API key is securely stored as a GitHub Actions secret
+- Notre clé API (secret \`DROX_API_KEY\`) est stockée dans GitHub Actions
 - Only users with write access to the repository can trigger the workflow
 - All Claude runs are stored in the GitHub Actions run history
 - Claude's default tools are limited to reading/writing files and interacting with our repo by creating comments, branches, and commits.
@@ -134,7 +134,7 @@ jobs:
         id: claude-review
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: \${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: \${{ secrets.DROX_API_KEY }}
           plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
           plugins: 'code-review@claude-code-plugins'
           prompt: '/code-review:code-review \${{ github.repository }}/pull/\${{ github.event.pull_request.number }}'
@@ -142,4 +142,3 @@ jobs:
           # or https://code.claude.com/docs/en/cli-reference for available options
 
 `
-

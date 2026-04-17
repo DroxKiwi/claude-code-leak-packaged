@@ -8,11 +8,11 @@ import type { Rectangle } from './layout/geometry.js'
  * shifted (O(dirty) instead of O(mounted) first-pass).
  */
 export type CachedLayout = {
-  x: number
-  y: number
-  width: number
-  height: number
-  top?: number
+	x: number
+	y: number
+	width: number
+	height: number
+	top?: number
 }
 
 export const nodeCache = new WeakMap<DOMElement, CachedLayout>()
@@ -31,25 +31,20 @@ export const pendingClears = new WeakMap<DOMElement, Rectangle[]>()
  */
 let absoluteNodeRemoved = false
 
-export function addPendingClear(
-  parent: DOMElement,
-  rect: Rectangle,
-  isAbsolute: boolean,
-): void {
-  const existing = pendingClears.get(parent)
-  if (existing) {
-    existing.push(rect)
-  } else {
-    pendingClears.set(parent, [rect])
-  }
-  if (isAbsolute) {
-    absoluteNodeRemoved = true
-  }
+export function addPendingClear(parent: DOMElement, rect: Rectangle, isAbsolute: boolean): void {
+	const existing = pendingClears.get(parent)
+	if (existing) {
+		existing.push(rect)
+	} else {
+		pendingClears.set(parent, [rect])
+	}
+	if (isAbsolute) {
+		absoluteNodeRemoved = true
+	}
 }
 
 export function consumeAbsoluteRemovedFlag(): boolean {
-  const had = absoluteNodeRemoved
-  absoluteNodeRemoved = false
-  return had
+	const had = absoluteNodeRemoved
+	absoluteNodeRemoved = false
+	return had
 }
-

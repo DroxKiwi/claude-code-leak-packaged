@@ -9,24 +9,23 @@ let hasShownThisSession = false
  * Shows the hint for 5 seconds once per session.
  */
 export function useShowFastIconHint(showFastIcon: boolean): boolean {
-  const [showHint, setShowHint] = useState(false)
+	const [showHint, setShowHint] = useState(false)
 
-  useEffect(() => {
-    if (hasShownThisSession || !showFastIcon) {
-      return
-    }
+	useEffect(() => {
+		if (hasShownThisSession || !showFastIcon) {
+			return
+		}
 
-    hasShownThisSession = true
-    setShowHint(true)
+		hasShownThisSession = true
+		setShowHint(true)
 
-    const timer = setTimeout(setShowHint, HINT_DISPLAY_DURATION_MS, false)
+		const timer = setTimeout(setShowHint, HINT_DISPLAY_DURATION_MS, false)
 
-    return () => {
-      clearTimeout(timer)
-      setShowHint(false)
-    }
-  }, [showFastIcon])
+		return () => {
+			clearTimeout(timer)
+			setShowHint(false)
+		}
+	}, [showFastIcon])
 
-  return showHint
+	return showHint
 }
-

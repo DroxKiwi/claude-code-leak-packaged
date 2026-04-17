@@ -15,7 +15,6 @@ import { getSettingsForSource } from '../settings/settings.js'
  * install chokepoint, enable op, and UI filters.
  */
 export function isPluginBlockedByPolicy(pluginId: string): boolean {
-  const policyEnabled = getSettingsForSource('policySettings')?.enabledPlugins
-  return policyEnabled?.[pluginId] === false
+	const policyEnabled = getSettingsForSource('policySettings')?.enabledPlugins
+	return policyEnabled?.[pluginId] === false
 }
-

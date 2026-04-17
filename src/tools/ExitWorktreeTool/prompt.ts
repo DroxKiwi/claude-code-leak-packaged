@@ -1,5 +1,5 @@
 export function getExitWorktreeToolPrompt(): string {
-  return `Exit a worktree session created by EnterWorktree and return the session to the original working directory.
+	return `Exit a worktree session created by EnterWorktree and return the session to the original working directory.
 
 ## Scope
 
@@ -30,4 +30,3 @@ If called outside an EnterWorktree session, the tool is a **no-op**: it reports 
 - Once exited, EnterWorktree can be called again to create a fresh worktree
 `
 }
-

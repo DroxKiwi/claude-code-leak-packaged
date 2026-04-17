@@ -1,26 +1,22 @@
 // scripts/test-auth.ts
-// Quick test that the API key is configured and can reach Anthropic
+// Vérifie que Ollama répond (Harness Drox — plus de client SDK Anthropic direct).
 // Usage: bun scripts/test-auth.ts
 
-import Anthropic from '@anthropic-ai/sdk'
-
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-})
-
 async function main() {
-  try {
-    const msg = await client.messages.create({
-      model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
-      max_tokens: 50,
-      messages: [{ role: 'user', content: 'Say "hello" and nothing else.' }],
-    })
-    console.log('✅ API connection successful!')
-    console.log('Response:', msg.content[0].type === 'text' ? msg.content[0].text : msg.content[0])
-  } catch (err: any) {
-    console.error('❌ API connection failed:', err.message)
-    process.exit(1)
-  }
+	const host = (process.env.OLLAMA_HOST || 'http://127.0.0.1:11434').replace(/\/$/, '')
+	try {
+		const r = await fetch(`${host}/api/tags`)
+		if (!r.ok) {
+			console.error('❌ Ollama:', r.status, r.statusText)
+			process.exit(1)
+		}
+		const data = (await r.json()) as { models?: unknown[] }
+		console.log('✅ Ollama joignable:', host)
+		console.log('Modèles:', Array.isArray(data.models) ? data.models.length : 0)
+	} catch (err: unknown) {
+		console.error('❌ Connexion Ollama impossible:', err instanceof Error ? err.message : err)
+		process.exit(1)
+	}
 }
 
 main()

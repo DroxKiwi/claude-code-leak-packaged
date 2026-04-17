@@ -6,9 +6,57 @@
 // Watch mode:       bun scripts/build-bundle.ts --watch
 
 import * as esbuild from 'esbuild'
-import { resolve, dirname } from 'path'
+import { resolve, dirname, extname } from 'path'
 import { chmodSync, readFileSync, existsSync } from 'fs'
+import { readFile } from 'fs/promises'
 import { fileURLToPath } from 'url'
+
+/**
+ * Bun's bundler inlines `feature('FLAG')` as true/false and dead-code-eliminates
+ * internal-only `require()` branches. Esbuild keeps the runtime shim, so it still
+ * tries to resolve those modules (missing from the public leak). Folding every
+ * call to `false` matches an external/minimal build and lets esbuild drop them.
+ */
+const featureFoldPlugin: esbuild.Plugin = {
+  name: 'fold-bun-bundle-features',
+  setup(build) {
+    build.onLoad({ filter: /\.(tsx?|jsx?)$/ }, async (args) => {
+      if (args.path.includes('node_modules')) {
+        return undefined
+      }
+      const norm = args.path.replace(/\\/g, '/')
+      if (norm.endsWith('src/shims/bun-bundle.ts')) {
+        return undefined
+      }
+      let text: string
+      try {
+        text = await readFile(args.path, 'utf-8')
+      } catch {
+        return undefined
+      }
+      if (!text.includes('feature(')) {
+        return undefined
+      }
+      const folded = text.replace(
+        /feature\s*\(\s*['"]([A-Z0-9_]+)['"]\s*\)/g,
+        'false',
+      )
+      if (folded === text) {
+        return undefined
+      }
+      const ext = extname(args.path)
+      const loader: esbuild.Loader =
+        ext === '.tsx'
+          ? 'tsx'
+          : ext === '.jsx'
+            ? 'jsx'
+            : ext === '.ts'
+              ? 'ts'
+              : 'js'
+      return { contents: folded, loader }
+    })
+  },
+}
 
 // Bun: import.meta.dir — Node 21+: import.meta.dirname — fallback
 const __dir: string =
@@ -75,7 +123,7 @@ const buildOptions: esbuild.BuildOptions = {
   // Single-file output — no code splitting for CLI tools
   splitting: false,
 
-  plugins: [srcResolverPlugin],
+  plugins: [featureFoldPlugin, srcResolverPlugin],
 
   // Use tsconfig for baseUrl / paths resolution (complements plugin above)
   tsconfig: resolve(ROOT, 'tsconfig.json'),
@@ -83,6 +131,14 @@ const buildOptions: esbuild.BuildOptions = {
   // Alias bun:bundle to our runtime shim
   alias: {
     'bun:bundle': resolve(ROOT, 'src/shims/bun-bundle.ts'),
+    '@ant/claude-for-chrome-mcp': resolve(
+      ROOT,
+      'src/shims/ant-claude-for-chrome-mcp.ts',
+    ),
+    '@anthropic-ai/sandbox-runtime': resolve(
+      ROOT,
+      'src/shims/anthropic-sandbox-runtime.ts',
+    ),
   },
 
   // Don't bundle node built-ins or problematic native packages
@@ -100,7 +156,6 @@ const buildOptions: esbuild.BuildOptions = {
     'sharp',
     'image-processor-napi',
     // Anthropic-internal packages (not published externally)
-    '@anthropic-ai/sandbox-runtime',
     '@anthropic-ai/claude-agent-sdk',
     // Anthropic-internal (@ant/) packages — gated behind USER_TYPE === 'ant'
     '@ant/*',

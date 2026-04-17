@@ -1,10 +1,10 @@
 import { createContext } from 'react'
 
 export type Props = {
-  /**
-   * Exit (unmount) the whole Ink app.
-   */
-  readonly exit: (error?: Error) => void
+	/**
+	 * Exit (unmount) the whole Ink app.
+	 */
+	readonly exit: (error?: Error) => void
 }
 
 /**
@@ -12,11 +12,10 @@ export type Props = {
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const AppContext = createContext<Props>({
-  exit() {},
+	exit() {},
 })
 
 // eslint-disable-next-line custom-rules/no-top-level-side-effects
 AppContext.displayName = 'InternalAppContext'
 
 export default AppContext
-

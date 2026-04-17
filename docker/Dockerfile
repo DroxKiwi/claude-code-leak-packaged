@@ -1,12 +1,12 @@
 # ─────────────────────────────────────────────────────────────
-# Claude Web Terminal — Production Container
+# Drox CLI Terminal — Production Container
 # ─────────────────────────────────────────────────────────────
 # Multi-stage build: compiles node-pty native module and bundles
 # the Claude CLI, then copies artifacts into a slim runtime image.
 #
 # Usage:
-#   docker build -f docker/Dockerfile -t claude-web .
-#   docker run -p 3000:3000 -e ANTHROPIC_API_KEY=sk-ant-... claude-web
+#   docker build -f docker/Dockerfile -t drox-cli .
+#   docker run --rm -it -e OLLAMA_HOST=http://host.docker.internal:11434 drox-cli --version
 # ─────────────────────────────────────────────────────────────
 
 # ── Stage 1: Build ────────────────────────────────────────────
@@ -50,8 +50,8 @@ COPY --from=builder /app/node_modules ./node_modules
 # Bundled Claude CLI
 COPY --from=builder /app/dist ./dist
 
-# PTY server source (bun runs TypeScript natively)
-COPY --from=builder /app/src/server ./src/server
+# CLI entrypoint source
+COPY --from=builder /app/src/entrypoints ./src/entrypoints
 
 # TypeScript config needed for bun's module resolution
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
@@ -69,15 +69,8 @@ RUN chown -R claude:claude /home/claude
 
 # ── Defaults ──────────────────────────────────────────────────
 ENV NODE_ENV=production \
-    PORT=3000 \
-    MAX_SESSIONS=5 \
     CLAUDE_BIN=claude
 
-EXPOSE 3000
-
 USER claude
-
-HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-    CMD curl -f http://localhost:${PORT:-3000}/health || exit 1
 
 ENTRYPOINT ["/entrypoint.sh"]

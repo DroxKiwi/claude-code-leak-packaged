@@ -17,7 +17,7 @@ const WORKER_INSTRUCTIONS = `After you finish implementing the change:
 5. **Report** — End with a single line: \`PR: <url>\` so the coordinator can track it. If no PR was created, end with \`PR: none — <reason>\`.`
 
 function buildPrompt(instruction: string): string {
-  return `# Batch: Parallel Work Orchestration
+	return `# Batch: Parallel Work Orchestration
 
 You are orchestrating a large, parallelizable change across this codebase.
 
@@ -88,7 +88,8 @@ When all agents have reported, render the final table and a one-line summary (e.
 `
 }
 
-const NOT_A_GIT_REPO_MESSAGE = `This is not a git repository. The \`/batch\` command requires a git repo because it spawns agents in isolated git worktrees and creates PRs from each. Initialize a repo first, or run this from inside an existing one.`
+const NOT_A_GIT_REPO_MESSAGE =
+	'This is not a git repository. The `/batch` command requires a git repo because it spawns agents in isolated git worktrees and creates PRs from each. Initialize a repo first, or run this from inside an existing one.'
 
 const MISSING_INSTRUCTION_MESSAGE = `Provide an instruction describing the batch change you want to make.
 
@@ -98,28 +99,27 @@ Examples:
   /batch add type annotations to all untyped function parameters`
 
 export function registerBatchSkill(): void {
-  registerBundledSkill({
-    name: 'batch',
-    description:
-      'Research and plan a large-scale change, then execute it in parallel across 5–30 isolated worktree agents that each open a PR.',
-    whenToUse:
-      'Use when the user wants to make a sweeping, mechanical change across many files (migrations, refactors, bulk renames) that can be decomposed into independent parallel units.',
-    argumentHint: '<instruction>',
-    userInvocable: true,
-    disableModelInvocation: true,
-    async getPromptForCommand(args) {
-      const instruction = args.trim()
-      if (!instruction) {
-        return [{ type: 'text', text: MISSING_INSTRUCTION_MESSAGE }]
-      }
+	registerBundledSkill({
+		name: 'batch',
+		description:
+			'Research and plan a large-scale change, then execute it in parallel across 5–30 isolated worktree agents that each open a PR.',
+		whenToUse:
+			'Use when the user wants to make a sweeping, mechanical change across many files (migrations, refactors, bulk renames) that can be decomposed into independent parallel units.',
+		argumentHint: '<instruction>',
+		userInvocable: true,
+		disableModelInvocation: true,
+		async getPromptForCommand(args) {
+			const instruction = args.trim()
+			if (!instruction) {
+				return [{ type: 'text', text: MISSING_INSTRUCTION_MESSAGE }]
+			}
 
-      const isGit = await getIsGit()
-      if (!isGit) {
-        return [{ type: 'text', text: NOT_A_GIT_REPO_MESSAGE }]
-      }
+			const isGit = await getIsGit()
+			if (!isGit) {
+				return [{ type: 'text', text: NOT_A_GIT_REPO_MESSAGE }]
+			}
 
-      return [{ type: 'text', text: buildPrompt(instruction) }]
-    },
-  })
+			return [{ type: 'text', text: buildPrompt(instruction) }]
+		},
+	})
 }
-

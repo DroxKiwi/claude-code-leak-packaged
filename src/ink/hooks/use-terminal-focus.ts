@@ -11,7 +11,6 @@ import TerminalFocusContext from '../components/TerminalFocusContext.js'
  * @returns true if the terminal is focused (or focus state is unknown)
  */
 export function useTerminalFocus(): boolean {
-  const { isTerminalFocused } = useContext(TerminalFocusContext)
-  return isTerminalFocused
+	const { isTerminalFocused } = useContext(TerminalFocusContext)
+	return isTerminalFocused
 }
-

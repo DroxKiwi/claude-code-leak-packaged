@@ -196,50 +196,45 @@ Begin your analysis now. Do this in 3 steps:
 Your final reply must contain the markdown report and nothing else.`
 
 export default createMovedToPluginCommand({
-  name: 'security-review',
-  description:
-    'Complete a security review of the pending changes on the current branch',
-  progressMessage: 'analyzing code changes for security risks',
-  pluginName: 'security-review',
-  pluginCommand: 'security-review',
-  async getPromptWhileMarketplaceIsPrivate(_args, context) {
-    // Parse frontmatter from the markdown
-    const parsed = parseFrontmatter(SECURITY_REVIEW_MARKDOWN)
+	name: 'security-review',
+	description: 'Complete a security review of the pending changes on the current branch',
+	progressMessage: 'analyzing code changes for security risks',
+	pluginName: 'security-review',
+	pluginCommand: 'security-review',
+	async getPromptWhileMarketplaceIsPrivate(_args, context) {
+		// Parse frontmatter from the markdown
+		const parsed = parseFrontmatter(SECURITY_REVIEW_MARKDOWN)
 
-    // Parse allowed tools from frontmatter
-    const allowedTools = parseSlashCommandToolsFromFrontmatter(
-      parsed.frontmatter['allowed-tools'],
-    )
+		// Parse allowed tools from frontmatter
+		const allowedTools = parseSlashCommandToolsFromFrontmatter(parsed.frontmatter['allowed-tools'])
 
-    // Execute bash commands in the prompt
-    const processedContent = await executeShellCommandsInPrompt(
-      parsed.content,
-      {
-        ...context,
-        getAppState() {
-          const appState = context.getAppState()
-          return {
-            ...appState,
-            toolPermissionContext: {
-              ...appState.toolPermissionContext,
-              alwaysAllowRules: {
-                ...appState.toolPermissionContext.alwaysAllowRules,
-                command: allowedTools,
-              },
-            },
-          }
-        },
-      },
-      'security-review',
-    )
+		// Execute bash commands in the prompt
+		const processedContent = await executeShellCommandsInPrompt(
+			parsed.content,
+			{
+				...context,
+				getAppState() {
+					const appState = context.getAppState()
+					return {
+						...appState,
+						toolPermissionContext: {
+							...appState.toolPermissionContext,
+							alwaysAllowRules: {
+								...appState.toolPermissionContext.alwaysAllowRules,
+								command: allowedTools,
+							},
+						},
+					}
+				},
+			},
+			'security-review',
+		)
 
-    return [
-      {
-        type: 'text',
-        text: processedContent,
-      },
-    ]
-  },
+		return [
+			{
+				type: 'text',
+				text: processedContent,
+			},
+		]
+	},
 })
-
-

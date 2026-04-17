@@ -1,5 +1,5 @@
 export function getPrompt(): string {
-  return `
+	return `
 # TeamDelete
 
 Remove team and task directories when the swarm work is complete.
@@ -14,4 +14,3 @@ This operation:
 Use this when all teammates have finished their work and you want to clean up the team resources. The team name is automatically determined from the current session's team context.
 `.trim()
 }
-

@@ -10,6 +10,5 @@ import { getInitialSettings } from '../settings/settings.js'
  * PowerShell (would break existing Windows users with bash hooks).
  */
 export function resolveDefaultShell(): 'bash' | 'powershell' {
-  return getInitialSettings().defaultShell ?? 'bash'
+	return getInitialSettings().defaultShell ?? 'bash'
 }
-

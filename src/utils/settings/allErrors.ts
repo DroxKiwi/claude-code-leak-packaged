@@ -21,13 +21,12 @@ import type { SettingsWithErrors } from './validation.js'
  * includes MCP errors to avoid the circular dependency.
  */
 export function getSettingsWithAllErrors(): SettingsWithErrors {
-  const result = getSettingsWithErrors()
-  // 'dynamic' scope does not have errors returned; it throws and is set on cli startup
-  const scopes = ['user', 'project', 'local'] as const
-  const mcpErrors = scopes.flatMap(scope => getMcpConfigsByScope(scope).errors)
-  return {
-    settings: result.settings,
-    errors: [...result.errors, ...mcpErrors],
-  }
+	const result = getSettingsWithErrors()
+	// 'dynamic' scope does not have errors returned; it throws and is set on cli startup
+	const scopes = ['user', 'project', 'local'] as const
+	const mcpErrors = scopes.flatMap((scope) => getMcpConfigsByScope(scope).errors)
+	return {
+		settings: result.settings,
+		errors: [...result.errors, ...mcpErrors],
+	}
 }
-

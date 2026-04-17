@@ -8,7 +8,7 @@ export const OSC8_START = '\x1b]8;;'
 export const OSC8_END = '\x07'
 
 type HyperlinkOptions = {
-  supportsHyperlinks?: boolean
+	supportsHyperlinks?: boolean
 }
 
 /**
@@ -21,20 +21,15 @@ type HyperlinkOptions = {
  *                  If hyperlinks are not supported, content is ignored and only the URL is shown.
  * @param options - Optional overrides for testing (supportsHyperlinks)
  */
-export function createHyperlink(
-  url: string,
-  content?: string,
-  options?: HyperlinkOptions,
-): string {
-  const hasSupport = options?.supportsHyperlinks ?? supportsHyperlinks()
-  if (!hasSupport) {
-    return url
-  }
+export function createHyperlink(url: string, content?: string, options?: HyperlinkOptions): string {
+	const hasSupport = options?.supportsHyperlinks ?? supportsHyperlinks()
+	if (!hasSupport) {
+		return url
+	}
 
-  // Apply basic ANSI blue color - wrap-ansi preserves this across line breaks
-  // RGB colors (like theme colors) are NOT preserved by wrap-ansi with OSC 8
-  const displayText = content ?? url
-  const coloredText = chalk.blue(displayText)
-  return `${OSC8_START}${url}${OSC8_END}${coloredText}${OSC8_START}${OSC8_END}`
+	// Apply basic ANSI blue color - wrap-ansi preserves this across line breaks
+	// RGB colors (like theme colors) are NOT preserved by wrap-ansi with OSC 8
+	const displayText = content ?? url
+	const coloredText = chalk.blue(displayText)
+	return `${OSC8_START}${url}${OSC8_END}${coloredText}${OSC8_START}${OSC8_END}`
 }
-

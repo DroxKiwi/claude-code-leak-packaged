@@ -10,39 +10,38 @@ const resolvers: Set<() => void> = new Set()
 const subscribers: Set<() => void> = new Set()
 
 export function setTerminalFocused(v: boolean): void {
-  focusState = v ? 'focused' : 'blurred'
-  // Notify useSyncExternalStore subscribers
-  for (const cb of subscribers) {
-    cb()
-  }
-  if (!v) {
-    for (const resolve of resolvers) {
-      resolve()
-    }
-    resolvers.clear()
-  }
+	focusState = v ? 'focused' : 'blurred'
+	// Notify useSyncExternalStore subscribers
+	for (const cb of subscribers) {
+		cb()
+	}
+	if (!v) {
+		for (const resolve of resolvers) {
+			resolve()
+		}
+		resolvers.clear()
+	}
 }
 
 export function getTerminalFocused(): boolean {
-  return focusState !== 'blurred'
+	return focusState !== 'blurred'
 }
 
 export function getTerminalFocusState(): TerminalFocusState {
-  return focusState
+	return focusState
 }
 
 // For useSyncExternalStore
 export function subscribeTerminalFocus(cb: () => void): () => void {
-  subscribers.add(cb)
-  return () => {
-    subscribers.delete(cb)
-  }
+	subscribers.add(cb)
+	return () => {
+		subscribers.delete(cb)
+	}
 }
 
 export function resetTerminalFocusState(): void {
-  focusState = 'unknown'
-  for (const cb of subscribers) {
-    cb()
-  }
+	focusState = 'unknown'
+	for (const cb of subscribers) {
+		cb()
+	}
 }
-

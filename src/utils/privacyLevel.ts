@@ -6,7 +6,7 @@
  *   default < no-telemetry < essential-traffic
  *
  * - default:            Everything enabled.
- * - no-telemetry:       Analytics/telemetry disabled (Datadog, 1P events, feedback survey).
+ * - no-telemetry:       Télémétrie / analytics applicative désactivées (voir `isAnalyticsDisabled`), enquête feedback.
  * - essential-traffic:  ALL nonessential network traffic disabled
  *                       (telemetry + auto-updates, grove, release notes, model capabilities, etc.).
  *
@@ -18,13 +18,13 @@
 type PrivacyLevel = 'default' | 'no-telemetry' | 'essential-traffic'
 
 export function getPrivacyLevel(): PrivacyLevel {
-  if (process.env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC) {
-    return 'essential-traffic'
-  }
-  if (process.env.DISABLE_TELEMETRY) {
-    return 'no-telemetry'
-  }
-  return 'default'
+	if (process.env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC) {
+		return 'essential-traffic'
+	}
+	if (process.env.DISABLE_TELEMETRY) {
+		return 'no-telemetry'
+	}
+	return 'default'
 }
 
 /**
@@ -32,7 +32,7 @@ export function getPrivacyLevel(): PrivacyLevel {
  * Equivalent to the old `process.env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` check.
  */
 export function isEssentialTrafficOnly(): boolean {
-  return getPrivacyLevel() === 'essential-traffic'
+	return getPrivacyLevel() === 'essential-traffic'
 }
 
 /**
@@ -40,7 +40,7 @@ export function isEssentialTrafficOnly(): boolean {
  * True at both `no-telemetry` and `essential-traffic` levels.
  */
 export function isTelemetryDisabled(): boolean {
-  return getPrivacyLevel() !== 'default'
+	return getPrivacyLevel() !== 'default'
 }
 
 /**
@@ -48,9 +48,8 @@ export function isTelemetryDisabled(): boolean {
  * or null if unrestricted. Used for user-facing "unset X to re-enable" messages.
  */
 export function getEssentialTrafficOnlyReason(): string | null {
-  if (process.env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC) {
-    return 'CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC'
-  }
-  return null
+	if (process.env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC) {
+		return 'CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC'
+	}
+	return null
 }
-

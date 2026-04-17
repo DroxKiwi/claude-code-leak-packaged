@@ -16,14 +16,11 @@ export type CustomizationSurface = (typeof CUSTOMIZATION_SURFACES)[number]
  * `true` locks all four surfaces; array form locks only those listed.
  * Absent/undefined → nothing locked (the default).
  */
-export function isRestrictedToPluginOnly(
-  surface: CustomizationSurface,
-): boolean {
-  const policy =
-    getSettingsForSource('policySettings')?.strictPluginOnlyCustomization
-  if (policy === true) return true
-  if (Array.isArray(policy)) return policy.includes(surface)
-  return false
+export function isRestrictedToPluginOnly(surface: CustomizationSurface): boolean {
+	const policy = getSettingsForSource('policySettings')?.strictPluginOnlyCustomization
+	if (policy === true) return true
+	if (Array.isArray(policy)) return policy.includes(surface)
+	return false
 }
 
 /**
@@ -38,11 +35,11 @@ export function isRestrictedToPluginOnly(
  * Command.source ('builtin' no hyphen, plus 'bundled').
  */
 const ADMIN_TRUSTED_SOURCES: ReadonlySet<string> = new Set([
-  'plugin',
-  'policySettings',
-  'built-in',
-  'builtin',
-  'bundled',
+	'plugin',
+	'policySettings',
+	'built-in',
+	'builtin',
+	'bundled',
 ])
 
 /**
@@ -56,6 +53,5 @@ const ADMIN_TRUSTED_SOURCES: ReadonlySet<string> = new Set([
  *   if (item.hooks && allowed) { register(...) }
  */
 export function isSourceAdminTrusted(source: string | undefined): boolean {
-  return source !== undefined && ADMIN_TRUSTED_SOURCES.has(source)
+	return source !== undefined && ADMIN_TRUSTED_SOURCES.has(source)
 }
-

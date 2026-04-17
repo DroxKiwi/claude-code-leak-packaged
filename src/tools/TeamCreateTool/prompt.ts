@@ -1,5 +1,5 @@
 export function getPrompt(): string {
-  return `
+	return `
 # TeamCreate
 
 ## When to Use
@@ -111,4 +111,3 @@ Teammates should:
 
 `.trim()
 }
-

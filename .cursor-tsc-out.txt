@@ -1,0 +1,204 @@
+﻿src/components/agents/new-agent-creation/wizard-steps/ConfirmStepWrapper.tsx(22,10): error TS2339: Property 'wizardData' does not exist on type 'WizardContextValue<AgentWizardData>'.
+src/components/LogoV2/AnimatedAsterisk.tsx(11,2): error TS2353: Object literal may only specify known properties, and 'r' does not exist in type '[number, number, number]'.
+src/components/MemoryUsageIndicator.tsx(10,6): error TS2367: This comparison appears to be unintentional because the types '"external"' and '"ant"' have no overlap.
+src/components/permissions/rules/AddWorkspaceDirectory.tsx(237,14): error TS2345: Argument of type 'string' is not assignable to parameter of type 'SetStateAction<null>'.
+src/components/PromptInput/VoiceIndicator.tsx(105,36): error TS2345: Argument of type '{ r: number; g: number; b: number; }' is not assignable to parameter of type 'RGBColor'.
+src/components/Settings/Settings.tsx(119,8): error TS2304: Cannot find name 'Gates'.
+src/components/Spinner/SpinnerGlyph.tsx(53,51): error TS2345: Argument of type '{ r: number; g: number; b: number; }' is not assignable to parameter of type 'RGBColor'.
+src/components/ui/TreeSelect.tsx(176,4): error TS2554: Expected 3 arguments, but got 2.
+src/context/promptOverlayContext.tsx(51,25): error TS2322: Type 'Dispatch<SetStateAction<null>>' is not assignable to type 'Setter<PromptOverlayData>'.
+  Types of parameters 'value' and 'd' are incompatible.
+    Type 'PromptOverlayData | null' is not assignable to type 'SetStateAction<null>'.
+      Type 'PromptOverlayData' is not assignable to type 'SetStateAction<null>'.
+        Type 'PromptOverlayData' provides no match for the signature '(prevState: null): null'.
+src/context/promptOverlayContext.tsx(52,32): error TS2322: Type 'Dispatch<SetStateAction<null>>' is not assignable to type 'Setter<ReactNode>'.
+  Types of parameters 'value' and 'd' are incompatible.
+    Type 'ReactNode' is not assignable to type 'SetStateAction<null>'.
+      Type 'undefined' is not assignable to type 'SetStateAction<null>'.
+src/cost-tracker.ts(259,40): error TS2339: Property 'server_tool_use' does not exist on type 'BetaUsage'.
+src/cost-tracker.ts(270,45): error TS2339: Property 'speed' does not exist on type 'BetaUsage'.
+src/interactiveHelpers.tsx(152,3): error TS2367: This comparison appears to be unintentional because the types '"production"' and '"test"' have no overlap.
+src/screens/ResumeConversation.tsx(298,73): error TS2307: Cannot find module '../services/contextCollapse/persist.js' or its corresponding type declarations.
+src/services/api/llmClient.ts(10,10): error TS2305: Module '"../../utils/envUtils.js"' has no exported member 'isOllamaMode'.
+src/services/autoDream/autoDream.ts(222,6): error TS2353: Object literal may only specify known properties, and 'verb' does not exist in type 'SystemMemorySavedMessage'.
+src/services/compact/sessionMemoryCompact.ts(432,3): error TS18048: 'boundaryMarker.compactMetadata' is possibly 'undefined'.
+src/services/extractMemories/extractMemories.ts(440,10): error TS2339: Property 'teamCount' does not exist on type 'SystemMemorySavedMessage'.
+src/services/lsp/config.ts(7,44): error TS2307: Cannot find module './types.js' or its corresponding type declarations.
+src/services/lsp/LSPClient.ts(8,8): error TS2307: Cannot find module 'vscode-jsonrpc/node.js' or its corresponding type declarations.
+src/services/lsp/LSPClient.ts(13,8): error TS2307: Cannot find module 'vscode-languageserver-protocol' or its corresponding type declarations.
+src/services/lsp/LSPServerInstance.ts(3,39): error TS2307: Cannot find module 'vscode-languageserver-protocol' or its corresponding type declarations.
+src/services/lsp/LSPServerInstance.ts(10,60): error TS2307: Cannot find module './types.js' or its corresponding type declarations.
+src/services/lsp/LSPServerManager.ts(8,44): error TS2307: Cannot find module './types.js' or its corresponding type declarations.
+src/services/lsp/passiveFeedback.ts(2,47): error TS2307: Cannot find module 'vscode-languageserver-protocol' or its corresponding type declarations.
+src/services/mcp/headersHelper.ts(49,148): error TS2339: Property 'FEEDBACK_CHANNEL' does not exist on type '{ VERSION: string; BUILD_TIME?: string | undefined; PACKAGE_URL: string; NATIVE_PACKAGE_URL?: string | undefined; ISSUES_EXPLAINER: string; }'.
+src/services/notifier.ts(132,30): error TS2307: Cannot find module 'plist' or its corresponding type declarations.
+src/services/oauth/index.ts(171,4): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/services/tips/tipRegistry.ts(47,38): error TS2307: Cannot find module './types.js' or its corresponding type declarations.
+src/services/tips/tipScheduler.ts(8,38): error TS2307: Cannot find module './types.js' or its corresponding type declarations.
+src/services/tokenEstimation.ts(5,15): error TS2305: Module '"@aws-sdk/client-bedrock-runtime"' has no exported member 'CountTokensCommandInput'.
+src/services/tokenEstimation.ts(450,11): error TS2339: Property 'CountTokensCommand' does not exist on type '{ default: typeof import("@aws-sdk/client-bedrock-runtime"); BedrockRuntimeClient: typeof BedrockRuntimeClient; }'.
+src/services/voice.ts(20,32): error TS2307: Cannot find module 'audio-capture-napi' or its corresponding type declarations.
+src/services/voice.ts(27,28): error TS2307: Cannot find module 'audio-capture-napi' or its corresponding type declarations.
+src/services/x402/paymentFetch.ts(34,2): error TS2741: Property 'preconnect' is missing in type '(input: RequestInfo | URL, init?: RequestInit) => Promise<Response>' but required in type 'typeof fetch'.
+src/tools/AgentTool/agentToolUtils.ts(321,3): error TS2739: Type 'BetaUsage' is missing the following properties from type '{ input_tokens: number; output_tokens: number; cache_creation_input_tokens: number | null; cache_read_input_tokens: number | null; server_tool_use: { web_search_requests: number; web_fetch_requests: number; } | null; service_tier: "priority" | ... 2 more ... | null; cache_creation: { ...; } | null; }': server_tool_use, service_tier, cache_creation
+src/tools/AgentTool/builtInAgents.ts(38,98): error TS2307: Cannot find module '../../coordinator/workerAgent.js' or its corresponding type declarations.
+src/tools/FileEditTool/FileEditTool.ts(355,8): error TS2322: Type '(input: { file_path: string; old_string: string; new_string: string; replace_all?: boolean | undefined; }, { readFileState, userModified, updateFileHistoryState, dynamicSkillDirTriggers }: ToolUseContext, _: CanUseToolFn, parentMessage: AssistantMessage) => Promise<...>' is not assignable to type '(args: { file_path: string; old_string: string; new_string: string; replace_all?: boolean | undefined; }, context: ToolUseContext, canUseTool: CanUseToolFn, parentMessage: AssistantMessage, onProgress?: ToolCallProgress<...> | undefined) => Promise<...>'.
+  Type 'Promise<{ data: { gitDiff?: ToolUseDiff | undefined; filePath: string; oldString: string; newString: string; originalFile: string; structuredPatch: StructuredPatchHunk[]; userModified: boolean; replaceAll: boolean; }; }>' is not assignable to type 'Promise<ToolResult<{ filePath: string; oldString: string; newString: string; originalFile: string; structuredPatch: { oldStart: number; oldLines: number; newStart: number; newLines: number; lines: string[]; }[]; userModified: boolean; replaceAll: boolean; gitDiff?: { ...; } | undefined; }>>'.
+    Type '{ data: { gitDiff?: ToolUseDiff | undefined; filePath: string; oldString: string; newString: string; originalFile: string; structuredPatch: StructuredPatchHunk[]; userModified: boolean; replaceAll: boolean; }; }' is not assignable to type 'ToolResult<{ filePath: string; oldString: string; newString: string; originalFile: string; structuredPatch: { oldStart: number; oldLines: number; newStart: number; newLines: number; lines: string[]; }[]; userModified: boolean; replaceAll: boolean; gitDiff?: { ...; } | undefined; }>'.
+      The types of 'data.structuredPatch' are incompatible between these types.
+        Type 'StructuredPatchHunk[]' is not assignable to type '{ oldStart: number; oldLines: number; newStart: number; newLines: number; lines: string[]; }[]'.
+          Type 'StructuredPatchHunk' is missing the following properties from type '{ oldStart: number; oldLines: number; newStart: number; newLines: number; lines: string[]; }': oldLines, newLines
+src/tools/FileEditTool/utils.ts(403,19): error TS2365: Operator '+' cannot be applied to types 'number' and '{}'.
+src/tools/FileReadTool/FileReadTool.ts(1083,38): error TS2307: Cannot find module 'sharp' or its corresponding type declarations.
+src/tools/FileReadTool/imageProcessor.ts(46,40): error TS2307: Cannot find module 'image-processor-napi' or its corresponding type declarations.
+src/tools/FileReadTool/imageProcessor.ts(59,33): error TS2307: Cannot find module 'sharp' or its corresponding type declarations.
+src/tools/FileReadTool/imageProcessor.ts(75,33): error TS2307: Cannot find module 'sharp' or its corresponding type declarations.
+src/tools/FileWriteTool/FileWriteTool.ts(203,8): error TS2322: Type '({ file_path, content }: { file_path: string; content: string; }, { readFileState, updateFileHistoryState, dynamicSkillDirTriggers }: ToolUseContext, _: CanUseToolFn, parentMessage: AssistantMessage) => Promise<{ ...; } | { ...; }>' is not assignable to type '(args: { file_path: string; content: string; }, context: ToolUseContext, canUseTool: CanUseToolFn, parentMessage: AssistantMessage, onProgress?: ToolCallProgress<...> | undefined) => Promise<...>'.
+  Type 'Promise<{ data: { gitDiff?: ToolUseDiff | undefined; type: "update"; filePath: string; content: string; structuredPatch: StructuredPatchHunk[]; originalFile: string; }; } | { ...; }>' is not assignable to type 'Promise<ToolResult<{ type: "create" | "update"; filePath: string; content: string; structuredPatch: { oldStart: number; oldLines: number; newStart: number; newLines: number; lines: string[]; }[]; originalFile: string | null; gitDiff?: { ...; } | undefined; }>>'.
+    Type '{ data: { gitDiff?: ToolUseDiff | undefined; type: "update"; filePath: string; content: string; structuredPatch: StructuredPatchHunk[]; originalFile: string; }; } | { ...; }' is not assignable to type 'ToolResult<{ type: "create" | "update"; filePath: string; content: string; structuredPatch: { oldStart: number; oldLines: number; newStart: number; newLines: number; lines: string[]; }[]; originalFile: string | null; gitDiff?: { ...; } | undefined; }>'.
+      Type '{ data: { gitDiff?: ToolUseDiff | undefined; type: "update"; filePath: string; content: string; structuredPatch: StructuredPatchHunk[]; originalFile: string; }; }' is not assignable to type 'ToolResult<{ type: "create" | "update"; filePath: string; content: string; structuredPatch: { oldStart: number; oldLines: number; newStart: number; newLines: number; lines: string[]; }[]; originalFile: string | null; gitDiff?: { ...; } | undefined; }>'.
+        The types of 'data.structuredPatch' are incompatible between these types.
+          Type 'StructuredPatchHunk[]' is not assignable to type '{ oldStart: number; oldLines: number; newStart: number; newLines: number; lines: string[]; }[]'.
+            Type 'StructuredPatchHunk' is missing the following properties from type '{ oldStart: number; oldLines: number; newStart: number; newLines: number; lines: string[]; }': oldLines, newLines
+src/tools/LSPTool/formatters.ts(14,8): error TS2307: Cannot find module 'vscode-languageserver-types' or its corresponding type declarations.
+src/tools/LSPTool/LSPTool.ts(13,8): error TS2307: Cannot find module 'vscode-languageserver-types' or its corresponding type declarations.
+src/tools/NotebookEditTool/UI.tsx(113,23): error TS2322: Type '{ code: string; filePath: string; }' is not assignable to type 'IntrinsicAttributes & object'.
+  Property 'code' does not exist on type 'IntrinsicAttributes & object'.
+src/tools/SkillTool/SkillTool.ts(887,42): error TS2339: Property 'url' does not exist on type 'never'.
+src/tools/SkillTool/SkillTool.ts(890,49): error TS2339: Property 'url' does not exist on type 'never'.
+src/tools/SkillTool/UI.tsx(90,56): error TS2345: Argument of type 'SkillToolProgress[]' is not assignable to parameter of type '{ message: AssistantMessage | NormalizedUserMessage; }[]'.
+  Property 'message' is missing in type 'SkillToolProgress' but required in type '{ message: AssistantMessage | NormalizedUserMessage; }'.
+src/tools/TaskOutputTool/TaskOutputTool.tsx(171,10): error TS2367: This comparison appears to be unintentional because the types '"external"' and '"ant"' have no overlap.
+src/tools/TaskStopTool/UI.tsx(32,6): error TS2367: This comparison appears to be unintentional because the types '"external"' and '"ant"' have no overlap.
+src/tools/testing/TestingPermissionTool.tsx(28,10): error TS2367: This comparison appears to be unintentional because the types '"production"' and '"test"' have no overlap.
+src/tools/WebFetchTool/utils.ts(88,35): error TS2307: Cannot find module 'turndown' or its corresponding type declarations.
+src/tools/WebFetchTool/utils.ts(91,44): error TS2307: Cannot find module 'turndown' or its corresponding type declarations.
+src/types/plugin.ts(1,38): error TS2307: Cannot find module '../services/lsp/types.js' or its corresponding type declarations.
+src/utils/advisor.ts(102,27): error TS2339: Property 'iterations' does not exist on type 'BetaUsage'.
+src/utils/asciicast.ts(192,32): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(buffer: string | Uint8Array<ArrayBufferLike>, cb?: ((err?: Error | null | undefined) => void) | undefined): boolean', gave the following error.
+    Argument of type '(err?: Error | undefined) => void' is not assignable to parameter of type '(err?: Error | null | undefined) => void'.
+      Types of parameters 'err' and 'err' are incompatible.
+        Type 'Error | null | undefined' is not assignable to type 'Error | undefined'.
+          Type 'null' is not assignable to type 'Error | undefined'.
+  Overload 2 of 2, '(str: string | Uint8Array<ArrayBufferLike>, encoding?: BufferEncoding | undefined, cb?: ((err?: Error | null | undefined) => void) | undefined): boolean', gave the following error.
+    Argument of type '(err?: Error | undefined) => void' is not assignable to parameter of type 'BufferEncoding | undefined'.
+src/utils/asciicast.ts(194,45): error TS2345: Argument of type '((err?: Error | undefined) => void) | undefined' is not assignable to parameter of type '((err?: Error | null | undefined) => void) | undefined'.
+  Type '(err?: Error | undefined) => void' is not assignable to type '(err?: Error | null | undefined) => void'.
+    Types of parameters 'err' and 'err' are incompatible.
+      Type 'Error | null | undefined' is not assignable to type 'Error | undefined'.
+        Type 'null' is not assignable to type 'Error | undefined'.
+src/utils/attribution.ts(358,44): error TS2307: Cannot find module './attributionTrailer.js' or its corresponding type declarations.
+src/utils/autoRunIssue.tsx(97,6): error TS2367: This comparison appears to be unintentional because the types '"external"' and '"ant"' have no overlap.
+src/utils/autoRunIssue.tsx(116,6): error TS2367: This comparison appears to be unintentional because the types '"external"' and '"ant"' have no overlap.
+src/utils/aws.ts(51,63): error TS2307: Cannot find module '@aws-sdk/client-sts' or its corresponding type declarations.
+src/utils/aws.ts(62,36): error TS2307: Cannot find module '@aws-sdk/credential-providers' or its corresponding type declarations.
+src/utils/cleanup.ts(439,32): error TS2307: Cannot find module 'cacache' or its corresponding type declarations.
+src/utils/computerUse/executor.ts(63,2): error TS2322: Type 'unknown' is not assignable to type '[number, number]'.
+src/utils/computerUse/gates.ts(1,15): error TS2305: Module '"@ant/computer-use-mcp/types"' has no exported member 'CoordinateMode'.
+src/utils/computerUse/gates.ts(1,31): error TS2305: Module '"@ant/computer-use-mcp/types"' has no exported member 'CuSubGates'.
+src/utils/computerUse/hostAdapter.ts(2,15): error TS2305: Module '"@ant/computer-use-mcp/types"' has no exported member 'ComputerUseHostAdapter'.
+src/utils/computerUse/hostAdapter.ts(2,39): error TS2305: Module '"@ant/computer-use-mcp/types"' has no exported member 'Logger'.
+src/utils/computerUse/inputLoader.ts(1,60): error TS2307: Cannot find module '@ant/computer-use-input' or its corresponding type declarations.
+src/utils/computerUse/mcpServer.ts(2,10): error TS2305: Module '"@ant/computer-use-mcp"' has no exported member 'buildComputerUseTools'.
+src/utils/computerUse/mcpServer.ts(2,33): error TS2305: Module '"@ant/computer-use-mcp"' has no exported member 'createComputerUseMcpServer'.
+src/utils/computerUse/setup.ts(3,10): error TS2305: Module '"@ant/computer-use-mcp"' has no exported member 'buildComputerUseTools'.
+src/utils/computerUse/swiftLoader.ts(1,37): error TS2307: Cannot find module '@ant/computer-use-swift' or its corresponding type declarations.
+src/utils/computerUse/wrapper.tsx(307,6): error TS18046: 'item' is of type 'unknown'.
+src/utils/computerUse/wrapper.tsx(312,22): error TS18046: 'item' is of type 'unknown'.
+src/utils/computerUse/wrapper.tsx(313,16): error TS18046: 'item' is of type 'unknown'.
+src/utils/computerUse/wrapper.tsx(318,15): error TS18046: 'item' is of type 'unknown'.
+src/utils/computerUse/wrapper.tsx(318,38): error TS18046: 'item' is of type 'unknown'.
+src/utils/context.ts(82,20): error TS2304: Cannot find name 'resolveAntModel'.
+src/utils/context.ts(145,20): error TS2304: Cannot find name 'resolveAntModel'.
+src/utils/deepLink/protocolHandler.ts(92,44): error TS2307: Cannot find module 'url-handler-napi' or its corresponding type declarations.
+src/utils/dxt/zip.ts(114,37): error TS2307: Cannot find module 'fflate' or its corresponding type declarations.
+src/utils/envUtils.ts(198,56): error TS2307: Cannot find module './protectedNamespace.js' or its corresponding type declarations.
+src/utils/execFileNoThrowPortable.ts(72,18): error TS2769: No overload matches this call.
+  Overload 1 of 4, '(templateString_0: TemplateStringsArray, ...templateString: TemplateExpression[]): SyncResult<{}>', gave the following error.
+    Argument of type 'string' is not assignable to parameter of type 'TemplateStringsArray'.
+  Overload 2 of 4, '(file: string | URL, arguments?: readonly string[] | undefined, options?: {} | undefined): SyncResult<{}>', gave the following error.
+    Object literal may only specify known properties, and 'env' does not exist in type 'readonly string[]'.
+  Overload 3 of 4, '(file: string | URL, options?: SyncOptions | undefined): SyncResult<SyncOptions>', gave the following error.
+    Type '"pipe" | "ignore" | "inherit" | "overlapped" | readonly [StdinOptionCommon<false, false>, StdoutStderrOptionCommon<false, false>, StdoutStderrOptionCommon<...>, ...StdioExtraOptionCommon<...>[]]' is not assignable to type 'StdioOptionsProperty<true>'.
+      Type '"overlapped"' is not assignable to type 'StdioOptionsProperty<true>'.
+src/utils/filePersistence/filePersistence.ts(23,2): error TS2305: Module '"./types.js"' has no exported member 'DEFAULT_UPLOAD_CONCURRENCY'.
+src/utils/filePersistence/filePersistence.ts(24,2): error TS2305: Module '"./types.js"' has no exported member 'FILE_COUNT_LIMIT'.
+src/utils/filePersistence/filePersistence.ts(25,7): error TS2305: Module '"./types.js"' has no exported member 'FailedPersistence'.
+src/utils/filePersistence/filePersistence.ts(26,7): error TS2305: Module '"./types.js"' has no exported member 'FilesPersistedEventData'.
+src/utils/filePersistence/filePersistence.ts(27,2): error TS2305: Module '"./types.js"' has no exported member 'OUTPUTS_SUBDIR'.
+src/utils/filePersistence/filePersistence.ts(28,7): error TS2305: Module '"./types.js"' has no exported member 'PersistedFile'.
+src/utils/generators.ts(35,9): error TS2322: Type 'Promise<QueuedGenerator<A> | { done: boolean | undefined; value: void | A; generator: AsyncGenerator<A, void, any>; promise: Promise<QueuedGenerator<A>>; }>' is not assignable to type 'Promise<QueuedGenerator<A>>'.
+  Type 'QueuedGenerator<A> | { done: boolean | undefined; value: void | A; generator: AsyncGenerator<A, void, any>; promise: Promise<QueuedGenerator<A>>; }' is not assignable to type 'QueuedGenerator<A>'.
+    Type '{ done: boolean | undefined; value: void | A; generator: AsyncGenerator<A, void, any>; promise: Promise<QueuedGenerator<A>>; }' is not assignable to type 'QueuedGenerator<A>'.
+      Types of property 'value' are incompatible.
+        Type 'void | A' is not assignable to type 'A | undefined'.
+          Type 'void' is not assignable to type 'A | undefined'.
+src/utils/gitDiff.ts(3,15): error TS2724: '"diff"' has no exported member named 'StructuredPatchHunk'. Did you mean 'structuredPatch'?
+src/utils/imagePaste.ts(102,45): error TS2307: Cannot find module 'image-processor-napi' or its corresponding type declarations.
+src/utils/imagePaste.ts(128,45): error TS2307: Cannot find module 'image-processor-napi' or its corresponding type declarations.
+src/utils/log.ts(220,3): error TS2322: Type 'Dirent<string>[]' is not assignable to type 'Dirent<NonSharedBuffer>[]'.
+  Type 'Dirent<string>' is not assignable to type 'Dirent<NonSharedBuffer>'.
+    Type 'string' is not assignable to type 'NonSharedBuffer'.
+src/utils/log.ts(227,32): error TS2345: Argument of type 'NonSharedBuffer' is not assignable to parameter of type 'string'.
+src/utils/logoV2Utils.ts(158,24): error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+src/utils/logoV2Utils.ts(291,27): error TS2339: Property 'VERSION_CHANGELOG' does not exist on type '{ VERSION: string; BUILD_TIME?: string | undefined; PACKAGE_URL: string; NATIVE_PACKAGE_URL?: string | undefined; ISSUES_EXPLAINER: string; }'.
+src/utils/mcpInstructionsDelta.ts(65,19): error TS18046: 'msg.attachment.addedNames' is of type 'unknown'.
+src/utils/mcpInstructionsDelta.ts(66,19): error TS18046: 'msg.attachment.removedNames' is of type 'unknown'.
+src/utils/messages/mappers.ts(20,64): error TS2345: Argument of type '(this: undefined, message: { type: "user"; message: unknown; parent_tool_use_id: string | null; isSynthetic?: boolean | undefined; tool_use_result?: unknown; priority?: "now" | "next" | "later" | undefined; timestamp?: string | undefined; uuid?: string | undefined; session_id?: string | undefined; } | ... 23 more .....' is not assignable to parameter of type '(this: undefined, value: { type: "user"; message: unknown; parent_tool_use_id: string | null; isSynthetic?: boolean | undefined; tool_use_result?: unknown; priority?: "now" | "next" | "later" | undefined; timestamp?: string | undefined; uuid?: string | undefined; session_id?: string | undefined; } | ... 23 more ... ...'.
+  Type 'Message[] | { type: "system"; content: string; level: "info"; subtype: "compact_boundary"; compactMetadata: { trigger: "manual" | "auto"; preTokens: number; userContext?: string | undefined; messagesSummarized?: number | undefined; preservedSegment?: { ...; } | undefined; preCompactDiscoveredTools?: string[] | undef...' is not assignable to type 'Message | readonly Message[]'.
+    Type '{ type: "system"; content: string; level: "info"; subtype: "compact_boundary"; compactMetadata: { trigger: "manual" | "auto"; preTokens: number; userContext?: string | undefined; messagesSummarized?: number | undefined; preservedSegment?: { ...; } | undefined; preCompactDiscoveredTools?: string[] | undefined; }; uui...' is not assignable to type 'Message | readonly Message[]'.
+      Type '{ type: "system"; content: string; level: "info"; subtype: "compact_boundary"; compactMetadata: { trigger: "manual" | "auto"; preTokens: number; userContext?: string | undefined; messagesSummarized?: number | undefined; preservedSegment?: { ...; } | undefined; preCompactDiscoveredTools?: string[] | undefined; }; uui...' is not assignable to type 'readonly Message[]'.
+        Type '{ type: "system"; content: string; level: "info"; subtype: "compact_boundary"; compactMetadata: { trigger: "manual" | "auto"; preTokens: number; userContext?: string; messagesSummarized?: number; preservedSegment?: { tailUuid?: string; headUuid?: string; anchorUuid?: string; }; preCompactDiscoveredTools?: string[]; ...' is not assignable to type 'Message'.
+          Type '{ type: "system"; content: string; level: "info"; subtype: "compact_boundary"; compactMetadata: { trigger: "manual" | "auto"; preTokens: number; userContext?: string; messagesSummarized?: number; preservedSegment?: { tailUuid?: string; headUuid?: string; anchorUuid?: string; }; preCompactDiscoveredTools?: string[]; ...' is not assignable to type 'SystemCompactBoundaryMessage'.
+            Types of property 'uuid' are incompatible.
+              Type 'string' is not assignable to type '`${string}-${string}-${string}-${string}-${string}`'.
+src/utils/model/modelCapabilities.ts(91,53): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(query?: ModelListParams | undefined, options?: RequestOptions<unknown> | undefined): PagePromise<ModelInfosPage, ModelInfo>', gave the following error.
+    Object literal may only specify known properties, and 'betas' does not exist in type 'ModelListParams'.
+  Overload 2 of 2, '(options?: RequestOptions<unknown> | undefined): PagePromise<ModelInfosPage, ModelInfo>', gave the following error.
+    Object literal may only specify known properties, and 'betas' does not exist in type 'RequestOptions<unknown>'.
+src/utils/model/modelOptions.ts(255,42): error TS2304: Cannot find name 'getAntModels'.
+src/utils/modelCost.ts(127,10): error TS2339: Property 'server_tool_use' does not exist on type 'BetaUsage'.
+src/utils/modelCost.ts(136,28): error TS2339: Property 'speed' does not exist on type 'BetaUsage'.
+src/utils/permissions/filesystem.ts(937,36): error TS2339: Property 'rule' does not exist on type 'TestResult'.
+src/utils/permissions/filesystem.ts(939,37): error TS2339: Property 'rule' does not exist on type 'TestResult'.
+src/utils/plugins/lspPluginIntegration.ts(4,61): error TS2307: Cannot find module '../../services/lsp/types.js' or its corresponding type declarations.
+src/utils/plugins/marketplaceHelpers.ts(93,4): error TS2322: Type '{ name: string; owner: { name: string; email?: string | undefined; url?: string | undefined; }; plugins: { name: string; source: string | { source: "npm"; package: string; version?: string | undefined; registry?: string | undefined; } | { ...; } | { ...; } | { ...; } | { ...; }; ... 20 more ...; tags?: string[] | un...' is not assignable to type 'null'.
+src/utils/plugins/zipCache.ts(210,35): error TS2307: Cannot find module 'fflate' or its corresponding type declarations.
+src/utils/proxy.ts(392,10): error TS2307: Cannot find module '@aws-sdk/credential-provider-node' or its corresponding type declarations.
+src/utils/readFileInRange.ts(355,27): error TS2345: Argument of type '(chunk: string) => void' is not assignable to parameter of type '(chunk: string | Buffer<ArrayBufferLike>) => void'.
+  Types of parameters 'chunk' and 'chunk' are incompatible.
+    Type 'string | Buffer<ArrayBufferLike>' is not assignable to type 'string'.
+      Type 'Buffer<ArrayBufferLike>' is not assignable to type 'string'.
+src/utils/releaseNotes.ts(286,27): error TS2339: Property 'VERSION_CHANGELOG' does not exist on type '{ VERSION: string; BUILD_TIME?: string | undefined; PACKAGE_URL: string; NATIVE_PACKAGE_URL?: string | undefined; ISSUES_EXPLAINER: string; }'.
+src/utils/releaseNotes.ts(330,27): error TS2339: Property 'VERSION_CHANGELOG' does not exist on type '{ VERSION: string; BUILD_TIME?: string | undefined; PACKAGE_URL: string; NATIVE_PACKAGE_URL?: string | undefined; ISSUES_EXPLAINER: string; }'.
+src/utils/sessionFileAccessHooks.ts(206,26): error TS2551: Property 'logMemoryWriteShape' does not exist on type 'typeof import("C:/Users/coren/Desktop/GitHub/claude-code-leak-packaged/src/memdir/memoryShapeTelemetry")'. Did you mean 'logMemoryRecallShape'?
+src/utils/sessionRestore.ts(125,71): error TS2307: Cannot find module '../services/contextCollapse/persist.js' or its corresponding type declarations.
+src/utils/sessionRestore.ts(478,71): error TS2307: Cannot find module '../services/contextCollapse/persist.js' or its corresponding type declarations.
+src/utils/sideQuery.ts(20,53): error TS2694: Namespace '"C:/Users/coren/Desktop/GitHub/claude-code-leak-packaged/node_modules/@anthropic-ai/sdk/resources/beta/messages/messages".Messages' has no exported member 'BetaJSONOutputFormat'.
+src/utils/startupDebugLog.ts(5,10): error TS2305: Module '"../constants/product.js"' has no exported member 'STARTUP_LOG_PREFIX'.
+src/utils/status.tsx(41,6): error TS2367: This comparison appears to be unintentional because the types '"external"' and '"ant"' have no overlap.
+src/utils/streamlinedTransform.ts(95,18): error TS18046: 'message.message' is of type 'unknown'.
+src/utils/streamlinedTransform.ts(118,21): error TS18046: 'message.message' is of type 'unknown'.
+src/utils/teleport.tsx(78,49): error TS2345: Argument of type '"suggestion"' is not assignable to parameter of type 'SystemMessageLevel'.
+src/utils/thinking.ts(92,7): error TS2304: Cannot find name 'resolveAntModel'.
+src/utils/tokens.ts(246,74): error TS2345: Argument of type 'Message[]' is not assignable to parameter of type 'readonly { type: string; message?: { content?: unknown; } | undefined; attachment?: Attachment | undefined; }[]'.
+  Type 'Message' is not assignable to type '{ type: string; message?: { content?: unknown; } | undefined; attachment?: Attachment | undefined; }'.
+    Type 'AttachmentMessage<Record<string, unknown>>' is not assignable to type '{ type: string; message?: { content?: unknown; } | undefined; attachment?: Attachment | undefined; }'.
+      Types of property 'attachment' are incompatible.
+        Type 'Record<string, unknown> & { type: string; }' is not assignable to type 'Attachment | undefined'.
+          Type 'Record<string, unknown> & { type: string; }' is not assignable to type 'FileAttachment | CompactFileReferenceAttachment | PDFReferenceAttachment | AlreadyReadFileAttachment | ... 55 more ... | { ...; }'.
+            Type 'Record<string, unknown> & { type: string; }' is missing the following properties from type 'HookSuccessAttachment': content, hookName, toolUseID, hookEvent
+src/utils/tokens.ts(251,46): error TS2345: Argument of type 'readonly Message[]' is not assignable to parameter of type 'readonly { type: string; message?: { content?: unknown; } | undefined; attachment?: Attachment | undefined; }[]'.
+  Type 'Message' is not assignable to type '{ type: string; message?: { content?: unknown; } | undefined; attachment?: Attachment | undefined; }'.
+    Type 'AttachmentMessage<Record<string, unknown>>' is not assignable to type '{ type: string; message?: { content?: unknown; } | undefined; attachment?: Attachment | undefined; }'.
+      Types of property 'attachment' are incompatible.
+        Type 'Record<string, unknown> & { type: string; }' is not assignable to type 'Attachment | undefined'.
+          Type 'Record<string, unknown> & { type: string; }' is not assignable to type 'FileAttachment | CompactFileReferenceAttachment | PDFReferenceAttachment | AlreadyReadFileAttachment | ... 55 more ... | { ...; }'.
+            Type 'Record<string, unknown> & { type: string; }' is missing the following properties from type 'HookSuccessAttachment': content, hookName, toolUseID, hookEvent
+src/utils/toolSearch.ts(641,19): error TS18046: 'msg.attachment.addedNames' is of type 'unknown'.
+src/utils/toolSearch.ts(642,19): error TS18046: 'msg.attachment.removedNames' is of type 'unknown'.
+src/utils/ultraplan/ccrSession.ts(98,25): error TS18046: 'm.message' is of type 'unknown'.
+src/utils/ultraplan/ccrSession.ts(106,21): error TS18046: 'm.message' is of type 'unknown'.

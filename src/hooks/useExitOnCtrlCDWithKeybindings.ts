@@ -16,10 +16,9 @@ export type { ExitState }
  * @param isActive - Whether the keybinding is active (default true).
  */
 export function useExitOnCtrlCDWithKeybindings(
-  onExit?: () => void,
-  onInterrupt?: () => boolean,
-  isActive?: boolean,
+	onExit?: () => void,
+	onInterrupt?: () => boolean,
+	isActive?: boolean,
 ): ExitState {
-  return useExitOnCtrlCD(useKeybindings, onInterrupt, onExit, isActive)
+	return useExitOnCtrlCD(useKeybindings, onInterrupt, onExit, isActive)
 }
-

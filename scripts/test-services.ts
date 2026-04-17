@@ -116,9 +116,8 @@ async function testBootstrapData() {
   try {
     const bootstrap = await import('../src/services/api/bootstrap.js')
 
-    // fetchBootstrapData should not crash — just skip when no auth
     await bootstrap.fetchBootstrapData()
-    pass('fetchBootstrapData', 'completes without crash (skips when no auth)')
+    pass('fetchBootstrapData', 'no-op stub completes')
   } catch (err: any) {
     // fetchBootstrapData catches its own errors, so this means an import-level issue
     fail('Bootstrap data', err.message)
@@ -195,7 +194,7 @@ async function testInit() {
 async function main() {
   console.log('=== Services Layer Smoke Test ===')
   console.log(`Environment: NODE_ENV=${process.env.NODE_ENV}`)
-  console.log(`Auth: ANTHROPIC_API_KEY=${process.env.ANTHROPIC_API_KEY ? '(set)' : '(not set)'}`)
+  console.log(`Auth: DROX_API_KEY=${process.env.DROX_API_KEY ? '(set)' : '(not set)'}`)
 
   // Test individual services first (order: least-dependent → most-dependent)
   await testAnalyticsSink()

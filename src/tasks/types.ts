@@ -10,23 +10,23 @@ import type { MonitorMcpTaskState } from './MonitorMcpTask/MonitorMcpTask.js'
 import type { RemoteAgentTaskState } from './RemoteAgentTask/RemoteAgentTask.js'
 
 export type TaskState =
-  | LocalShellTaskState
-  | LocalAgentTaskState
-  | RemoteAgentTaskState
-  | InProcessTeammateTaskState
-  | LocalWorkflowTaskState
-  | MonitorMcpTaskState
-  | DreamTaskState
+	| LocalShellTaskState
+	| LocalAgentTaskState
+	| RemoteAgentTaskState
+	| InProcessTeammateTaskState
+	| LocalWorkflowTaskState
+	| MonitorMcpTaskState
+	| DreamTaskState
 
 // Task types that can appear in the background tasks indicator
 export type BackgroundTaskState =
-  | LocalShellTaskState
-  | LocalAgentTaskState
-  | RemoteAgentTaskState
-  | InProcessTeammateTaskState
-  | LocalWorkflowTaskState
-  | MonitorMcpTaskState
-  | DreamTaskState
+	| LocalShellTaskState
+	| LocalAgentTaskState
+	| RemoteAgentTaskState
+	| InProcessTeammateTaskState
+	| LocalWorkflowTaskState
+	| MonitorMcpTaskState
+	| DreamTaskState
 
 /**
  * Check if a task should be shown in the background tasks indicator.
@@ -35,13 +35,12 @@ export type BackgroundTaskState =
  * 2. It has been explicitly backgrounded (not a foreground task)
  */
 export function isBackgroundTask(task: TaskState): task is BackgroundTaskState {
-  if (task.status !== 'running' && task.status !== 'pending') {
-    return false
-  }
-  // Foreground tasks (isBackgrounded === false) are not yet "background tasks"
-  if ('isBackgrounded' in task && task.isBackgrounded === false) {
-    return false
-  }
-  return true
+	if (task.status !== 'running' && task.status !== 'pending') {
+		return false
+	}
+	// Foreground tasks (isBackgrounded === false) are not yet "background tasks"
+	if ('isBackgrounded' in task && task.isBackgrounded === false) {
+		return false
+	}
+	return true
 }
-

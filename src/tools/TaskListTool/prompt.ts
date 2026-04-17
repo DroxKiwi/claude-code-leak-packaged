@@ -3,17 +3,17 @@ import { isAgentSwarmsEnabled } from '../../utils/agentSwarmsEnabled.js'
 export const DESCRIPTION = 'List all tasks in the task list'
 
 export function getPrompt(): string {
-  const teammateUseCase = isAgentSwarmsEnabled()
-    ? `- Before assigning tasks to teammates, to see what's available
+	const teammateUseCase = isAgentSwarmsEnabled()
+		? `- Before assigning tasks to teammates, to see what's available
 `
-    : ''
+		: ''
 
-  const idDescription = isAgentSwarmsEnabled()
-    ? '- **id**: Task identifier (use with TaskGet, TaskUpdate)'
-    : '- **id**: Task identifier (use with TaskGet, TaskUpdate)'
+	const idDescription = isAgentSwarmsEnabled()
+		? '- **id**: Task identifier (use with TaskGet, TaskUpdate)'
+		: '- **id**: Task identifier (use with TaskGet, TaskUpdate)'
 
-  const teammateWorkflow = isAgentSwarmsEnabled()
-    ? `
+	const teammateWorkflow = isAgentSwarmsEnabled()
+		? `
 ## Teammate Workflow
 
 When working as a teammate:
@@ -23,9 +23,9 @@ When working as a teammate:
 4. Claim an available task using TaskUpdate (set \`owner\` to your name), or wait for leader assignment
 5. If blocked, focus on unblocking tasks or notify the team lead
 `
-    : ''
+		: ''
 
-  return `Use this tool to list all tasks in the task list.
+	return `Use this tool to list all tasks in the task list.
 
 ## When to Use This Tool
 
@@ -47,4 +47,3 @@ ${idDescription}
 Use TaskGet with a specific task ID to view full details including description and comments.
 ${teammateWorkflow}`
 }
-

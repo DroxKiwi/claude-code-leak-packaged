@@ -26,15 +26,14 @@ let _primitiveTools: readonly Tool[] | undefined
  * excludes Glob/Grep when hasEmbeddedSearchTools() is true.
  */
 export function getReplPrimitiveTools(): readonly Tool[] {
-  return (_primitiveTools ??= [
-    FileReadTool,
-    FileWriteTool,
-    FileEditTool,
-    GlobTool,
-    GrepTool,
-    BashTool,
-    NotebookEditTool,
-    AgentTool,
-  ])
+	return (_primitiveTools ??= [
+		FileReadTool,
+		FileWriteTool,
+		FileEditTool,
+		GlobTool,
+		GrepTool,
+		BashTool,
+		NotebookEditTool,
+		AgentTool,
+	])
 }
-

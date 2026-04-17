@@ -1,10 +1,10 @@
-import { createElement, type ReactNode } from 'react'
+import { type ReactNode, createElement } from 'react'
 import { ThemeProvider } from './components/design-system/ThemeProvider.js'
 import inkRender, {
-  type Instance,
-  createRoot as inkCreateRoot,
-  type RenderOptions,
-  type Root,
+	type Instance,
+	createRoot as inkCreateRoot,
+	type RenderOptions,
+	type Root,
 } from './ink/root.js'
 
 export type { RenderOptions, Instance, Root }
@@ -12,22 +12,22 @@ export type { RenderOptions, Instance, Root }
 // Wrap all CC render calls with ThemeProvider so ThemedBox/ThemedText work
 // without every call site having to mount it. Ink itself is theme-agnostic.
 function withTheme(node: ReactNode): ReactNode {
-  return createElement(ThemeProvider, null, node)
+	return createElement(ThemeProvider, null, node)
 }
 
 export async function render(
-  node: ReactNode,
-  options?: NodeJS.WriteStream | RenderOptions,
+	node: ReactNode,
+	options?: NodeJS.WriteStream | RenderOptions,
 ): Promise<Instance> {
-  return inkRender(withTheme(node), options)
+	return inkRender(withTheme(node), options)
 }
 
 export async function createRoot(options?: RenderOptions): Promise<Root> {
-  const root = await inkCreateRoot(options)
-  return {
-    ...root,
-    render: node => root.render(withTheme(node)),
-  }
+	const root = await inkCreateRoot(options)
+	return {
+		...root,
+		render: (node) => root.render(withTheme(node)),
+	}
 }
 
 export { color } from './components/design-system/color.js'
@@ -36,18 +36,18 @@ export { default as Box } from './components/design-system/ThemedBox.js'
 export type { Props as TextProps } from './components/design-system/ThemedText.js'
 export { default as Text } from './components/design-system/ThemedText.js'
 export {
-  ThemeProvider,
-  usePreviewTheme,
-  useTheme,
-  useThemeSetting,
+	ThemeProvider,
+	usePreviewTheme,
+	useTheme,
+	useThemeSetting,
 } from './components/design-system/ThemeProvider.js'
 export { Ansi } from './ink/Ansi.js'
 export type { Props as AppProps } from './ink/components/AppContext.js'
 export type { Props as BaseBoxProps } from './ink/components/Box.js'
 export { default as BaseBox } from './ink/components/Box.js'
 export type {
-  ButtonState,
-  Props as ButtonProps,
+	ButtonState,
+	Props as ButtonProps,
 } from './ink/components/Button.js'
 export { default as Button } from './ink/components/Button.js'
 export type { Props as LinkProps } from './ink/components/Link.js'
@@ -83,4 +83,3 @@ export { useTerminalViewport } from './ink/hooks/use-terminal-viewport.js'
 export { default as measureElement } from './ink/measure-element.js'
 export { supportsTabStatus } from './ink/termio/osc.js'
 export { default as wrapText } from './ink/wrap-text.js'
-
